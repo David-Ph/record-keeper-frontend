@@ -1,7 +1,16 @@
 import "./App.css";
+import React from "react";
+import Card from "./components/UI/Card/Card";
 
 function App() {
-  return <h1 className="text-3xl font-bold font-mono">Hello world!</h1>;
+  return (
+    <div className="bg-logo-bg h-screen bg-cover bg-center bg-no-repeat">
+      <Card>
+        <h1>Hello World</h1>
+        <p>Welcome to record keeper!</p>
+      </Card>
+    </div>
+  );
 }
 
 export default App;
