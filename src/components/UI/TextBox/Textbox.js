@@ -1,14 +1,9 @@
-import React from "react";
-
 import Card from "../Card/Card";
 
-function Textbox() {
+function Textbox(props) {
   return (
-    <div className="bg-primary rounded-xl">
-      <Card>
-        <h1>Hello World</h1>
-        <p>Welcome to Record Keeper</p>
-      </Card>
+    <div className="bg-primary rounded-md m-2">
+      <Card>{props.children}</Card>
     </div>
   );
 }

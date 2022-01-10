@@ -1,6 +1,6 @@
 function Card(props) {
   return (
-    <div className="p-2 rounded-xl shadow-lg border border-black">
+    <div className="p-2 rounded-md shadow-lg border border-black">
       {props.children}
     </div>
   );
