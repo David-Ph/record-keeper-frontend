@@ -6,6 +6,11 @@ module.exports = {
         "logo-bg": "url('./assets/Logo/logo-bg.png')",
         "logo-transparent": "url('assets/logo-transparent.png')",
       },
+      colors: {
+        primary: "#FDE59B",
+        secondary: "#BF1919",
+        tertiary: "#2A0301",
+      },
     },
   },
   plugins: [],
