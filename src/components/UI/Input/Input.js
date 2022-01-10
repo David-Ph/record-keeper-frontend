@@ -9,7 +9,7 @@ const Input = forwardRef((props, ref) => {
       <input
         {...props.input}
         ref={ref}
-        className="bg-yellow-100 rounded-md border-black w-full md:w-2/3 px-2 py-1 box-border"
+        className="bg-yellow-100 rounded-md border border-black w-full md:w-2/3 px-2 py-1 box-border"
       />
     </div>
   );

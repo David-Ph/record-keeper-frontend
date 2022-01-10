@@ -1,15 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import Textbox from "../UI/Textbox/Textbox";
 import Input from "../UI/Input/Input";
+import Button from "../UI/Button/Button";
 
 function Login() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
 
   return (
-    <div>
+    <Fragment>
       <Textbox>
         <h1 className="font-semibold text-2xl">Login</h1>
       </Textbox>
@@ -32,18 +33,17 @@ function Login() {
                 type: "password",
               }}
             />
-            <Input
-              label="Confirm Password:"
-              ref={confirmPasswordInputRef}
-              input={{
-                id: "confirmPassword",
-                type: "password",
-              }}
-            />
+            <Button type="submit">Login</Button>
           </form>
         </section>
+        <p className="text-xs mt-2 text-right">
+          Don't have an account yet?{" "}
+          <Link style={{ color: "blue" }} to="/register">
+            Register here!
+          </Link>
+        </p>
       </Textbox>
-    </div>
+    </Fragment>
   );
 }
 
