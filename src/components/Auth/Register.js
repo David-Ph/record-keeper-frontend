@@ -29,7 +29,7 @@ function Register() {
               input={{
                 id: "username",
                 type: "text",
-                minlength: "3",
+                minLength: "3",
                 maxLength: "25",
               }}
             />
@@ -39,7 +39,7 @@ function Register() {
               input={{
                 id: "email",
                 type: "email",
-                minlength: "1",
+                minLength: "1",
               }}
             />
             <Input
@@ -48,7 +48,7 @@ function Register() {
               input={{
                 id: "password",
                 type: "password",
-                minlength: "6",
+                minLength: "6",
               }}
             />
             <Input
@@ -57,7 +57,7 @@ function Register() {
               input={{
                 id: "confirmPassword",
                 type: "password",
-                minlength: "6",
+                minLength: "6",
               }}
             />
             <Button type="submit">Register</Button>

@@ -23,6 +23,7 @@ function Login() {
               input={{
                 id: "email",
                 type: "email",
+                minLength: "1"
               }}
             />
             <Input
@@ -31,6 +32,7 @@ function Login() {
               input={{
                 id: "password",
                 type: "password",
+                minLength: "6"
               }}
             />
             <Button type="submit">Login</Button>
