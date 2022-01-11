@@ -5,7 +5,7 @@ import Register from "../../components/Auth/Register";
 
 function Auth() {
   return (
-    <div className="mx-auto py-12 w-11/12 max-w-screen-sm">
+    <div className="mx-auto py-12 w-11/12 max-w-screen-sm transition-all">
       <Route path="/login">
         <Login />
       </Route>

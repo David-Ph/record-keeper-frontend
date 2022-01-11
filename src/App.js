@@ -4,7 +4,7 @@ import Router from "./router/Router";
 
 function App() {
   return (
-    <div className="bg-logo-bg h-screen bg-cover bg-center bg-no-repeat">
+    <div className="bg-logo-bg min-h-screen h-full bg-cover bg-center bg-no-repeat">
       <Router />
     </div>
   );

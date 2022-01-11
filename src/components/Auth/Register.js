@@ -1,15 +1,24 @@
-import React, { useRef, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+
+import useInput from "../../hooks/useInput";
+import {
+  usernameValidator,
+  passwordValidator,
+  confirmPasswordValidator,
+  emailValidator,
+} from "../../helper/validators/AuthValidator";
 
 import Textbox from "../UI/Textbox/Textbox";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
+import ErrorMessage from "../UI/Notifications/ErrorMessage";
 
 function Register() {
-  const usernameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
+  const usernameStates = useInput(usernameValidator);
+  const emailStates = useInput(emailValidator);
+  const passwordStates = useInput(passwordValidator);
+  const confirmPasswordStates = useInput(confirmPasswordValidator);
 
   const registerHandler = (event) => {
     event.preventDefault();
@@ -25,41 +34,65 @@ function Register() {
           <form onSubmit={registerHandler}>
             <Input
               label="Username:"
-              ref={usernameInputRef}
+              isValid={usernameStates.validity.isValid}
+              onChange={usernameStates.valueChangeHandler}
+              onBlur={usernameStates.valueInputBlurHandler}
               input={{
                 id: "username",
                 type: "text",
                 minLength: "3",
                 maxLength: "25",
+                value: usernameStates.value,
               }}
             />
+            {usernameStates.hasError && (
+              <ErrorMessage message={usernameStates.validity.message} />
+            )}
             <Input
               label="Email:"
-              ref={emailInputRef}
+              isValid={emailStates.validity.isValid}
+              onChange={emailStates.valueChangeHandler}
+              onBlur={emailStates.valueInputBlurHandler}
               input={{
                 id: "email",
                 type: "email",
                 minLength: "1",
+                value: emailStates.value,
               }}
             />
+            {emailStates.hasError && (
+              <ErrorMessage message={emailStates.validity.message} />
+            )}
             <Input
               label="Password:"
-              ref={passwordInputRef}
+              isValid={passwordStates.validity.isValid}
+              onChange={passwordStates.valueChangeHandler}
+              onBlur={passwordStates.valueInputBlurHandler}
               input={{
                 id: "password",
                 type: "password",
                 minLength: "6",
+                value: passwordStates.value,
               }}
             />
+            {passwordStates.hasError && (
+              <ErrorMessage message={passwordStates.validity.message} />
+            )}
             <Input
               label="Confirm Password:"
-              ref={confirmPasswordInputRef}
+              isValid={confirmPasswordStates.validity.isValid}
+              onChange={confirmPasswordStates.valueChangeHandler}
+              onBlur={confirmPasswordStates.valueInputBlurHandler}
               input={{
                 id: "confirmPassword",
                 type: "password",
                 minLength: "6",
+                value: confirmPasswordStates.value,
               }}
             />
+            {confirmPasswordStates.hasError && (
+              <ErrorMessage message={confirmPasswordStates.validity.message} />
+            )}
             <Button type="submit">Register</Button>
           </form>
         </section>
