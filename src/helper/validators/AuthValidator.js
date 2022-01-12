@@ -30,9 +30,3 @@ export const passwordValidator = (password = "") => {
     : "Password needs to have at least 6 characters, 1 uppercase, and 1 lowercase";
   return { isValid, message };
 };
-
-export const confirmPasswordValidator = (password, confirmPassword) => {
-  const isValid = password === confirmPassword;
-  const message = isValid ? "OK" : "Password does not match";
-  return { isValid, message };
-};

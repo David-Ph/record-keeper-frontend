@@ -5,7 +5,6 @@ import useInput from "../../hooks/useInput";
 import {
   usernameValidator,
   passwordValidator,
-  confirmPasswordValidator,
   emailValidator,
 } from "../../helper/validators/AuthValidator";
 
@@ -18,10 +17,16 @@ function Register() {
   const usernameStates = useInput(usernameValidator);
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
-  const confirmPasswordStates = useInput(confirmPasswordValidator);
+  const confirmPasswordStates = useInput(passwordValidator);
 
   const registerHandler = (event) => {
     event.preventDefault();
+    const userData = {
+      username: usernameStates.value,
+      email: emailStates.value,
+      password: passwordStates.value,
+    };
+    console.log(userData);
   };
 
   return (
@@ -90,8 +95,8 @@ function Register() {
                 value: confirmPasswordStates.value,
               }}
             />
-            {confirmPasswordStates.hasError && (
-              <ErrorMessage message={confirmPasswordStates.validity.message} />
+            {confirmPasswordStates.value !== passwordStates.value && (
+              <ErrorMessage message="Password Does Not Match" />
             )}
             <Button type="submit">Register</Button>
           </form>

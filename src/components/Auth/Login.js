@@ -1,13 +1,29 @@
-import React, { useRef, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+
+import useInput from "../../hooks/useInput";
+import {
+  passwordValidator,
+  emailValidator,
+} from "../../helper/validators/AuthValidator";
 
 import Textbox from "../UI/Textbox/Textbox";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
+import ErrorMessage from "../UI/Notifications/ErrorMessage";
 
 function Login() {
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+  const emailStates = useInput(emailValidator);
+  const passwordStates = useInput(passwordValidator);
+
+  const loginHandler = (event) => {
+    event.preventDefault();
+    const userData = {
+      email: emailStates.value,
+      password: passwordStates.value,
+    };
+    console.log(userData);
+  };
 
   return (
     <Fragment>
@@ -16,25 +32,37 @@ function Login() {
       </Textbox>
       <Textbox>
         <section>
-          <form>
+          <form onSubmit={loginHandler}>
             <Input
               label="Email:"
-              ref={emailInputRef}
+              isValid={emailStates.validity.isValid}
+              onChange={emailStates.valueChangeHandler}
+              onBlur={emailStates.valueInputBlurHandler}
               input={{
                 id: "email",
                 type: "email",
-                minLength: "1"
+                minLength: "1",
+                value: emailStates.value,
               }}
             />
+            {emailStates.hasError && (
+              <ErrorMessage message={emailStates.validity.message} />
+            )}
             <Input
               label="Password:"
-              ref={passwordInputRef}
+              isValid={passwordStates.validity.isValid}
+              onChange={passwordStates.valueChangeHandler}
+              onBlur={passwordStates.valueInputBlurHandler}
               input={{
                 id: "password",
                 type: "password",
-                minLength: "6"
+                minLength: "6",
+                value: passwordStates.value,
               }}
             />
+            {passwordStates.hasError && (
+              <ErrorMessage message={passwordStates.validity.message} />
+            )}
             <Button type="submit">Login</Button>
           </form>
         </section>
