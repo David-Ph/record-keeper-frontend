@@ -7,26 +7,31 @@ import {
   passwordValidator,
   emailValidator,
 } from "../../helper/validators/AuthValidator";
+import useHttp from "../../hooks/useHttp";
+import { register } from "../../lib/api";
 
 import Textbox from "../UI/Textbox/Textbox";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function Register() {
+  const { sendRequest, status, data, error } = useHttp(register);
   const usernameStates = useInput(usernameValidator);
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
   const confirmPasswordStates = useInput(passwordValidator);
 
-  const registerHandler = (event) => {
+  const registerHandler = async (event) => {
     event.preventDefault();
     const userData = {
       username: usernameStates.value,
       email: emailStates.value,
       password: passwordStates.value,
     };
-    console.log(userData);
+
+    await sendRequest(userData);
   };
 
   return (
@@ -98,7 +103,14 @@ function Register() {
             {confirmPasswordStates.value !== passwordStates.value && (
               <ErrorMessage message="Password Does Not Match" />
             )}
-            <Button type="submit">Register</Button>
+
+            {error && <ErrorMessage message={error} />}
+
+            {status === "pending" ? (
+              <LoadingSpinner />
+            ) : (
+              <Button type="submit">Register</Button>
+            )}
           </form>
         </section>
         <p className="text-xs mt-2 text-right">

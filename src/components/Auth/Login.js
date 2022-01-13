@@ -6,23 +6,29 @@ import {
   passwordValidator,
   emailValidator,
 } from "../../helper/validators/AuthValidator";
+import useHttp from "../../hooks/useHttp";
+import { login } from "../../lib/api";
 
 import Textbox from "../UI/Textbox/Textbox";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function Login() {
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
 
-  const loginHandler = (event) => {
+  const { sendRequest, data, error, status } = useHttp(login);
+
+  const loginHandler = async (event) => {
     event.preventDefault();
     const userData = {
       email: emailStates.value,
       password: passwordStates.value,
     };
-    console.log(userData);
+
+    await sendRequest(userData);
   };
 
   return (
@@ -63,7 +69,14 @@ function Login() {
             {passwordStates.hasError && (
               <ErrorMessage message={passwordStates.validity.message} />
             )}
-            <Button type="submit">Login</Button>
+
+            {error && <ErrorMessage message={error} />}
+
+            {status === "pending" ? (
+              <LoadingSpinner />
+            ) : (
+              <Button type="submit">Login</Button>
+            )}
           </form>
         </section>
         <p className="text-xs mt-2 text-right">
