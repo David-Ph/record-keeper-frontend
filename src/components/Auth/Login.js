@@ -30,9 +30,9 @@ function Login() {
     };
 
     const response = await sendRequest(userData);
-    
+    console.log(response);
     // check if ok
-    // set localstorage 
+    // set localstorage
   };
 
   return (
