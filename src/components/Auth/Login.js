@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { Routes } from "../../router/Routes";
 
 import useInput from "../../hooks/useInput";
 import {
@@ -81,7 +82,7 @@ function Login() {
         </section>
         <p className="text-xs mt-2 text-right">
           Don't have an account yet?{" "}
-          <Link style={{ color: "blue" }} to="/register">
+          <Link style={{ color: "blue" }} to={Routes.AUTH_REGISTER}>
             Register here!
           </Link>
         </p>

@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { Routes } from "../../router/Routes";
 
 import useInput from "../../hooks/useInput";
 import {
@@ -114,7 +115,7 @@ function Register() {
           </form>
         </section>
         <p className="text-xs mt-2 text-right">
-          <Link style={{ color: "blue" }} to="/login">
+          <Link style={{ color: "blue" }} to={Routes.AUTH_LOGIN}>
             Click here
           </Link>{" "}
           to sign in!
