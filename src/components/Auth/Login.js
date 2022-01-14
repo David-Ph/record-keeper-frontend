@@ -20,7 +20,7 @@ function Login() {
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
 
-  const { sendRequest, data, error, status } = useHttp(login);
+  const { sendRequest, error, status } = useHttp(login);
 
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -29,7 +29,7 @@ function Login() {
       password: passwordStates.value,
     };
 
-    await sendRequest(userData);
+    const response = await sendRequest(userData);
   };
 
   return (

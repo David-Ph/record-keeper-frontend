@@ -32,7 +32,9 @@ function Register() {
       password: passwordStates.value,
     };
 
-    await sendRequest(userData);
+    await sendRequest(userData).then(() => {
+      console.log(data);
+    });
   };
 
   return (
