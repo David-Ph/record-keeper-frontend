@@ -8,6 +8,7 @@ export async function login(loginData) {
 
     // check if ok
     // set localstorage
+    console.log(response);
 
     return response;
   } catch (error) {

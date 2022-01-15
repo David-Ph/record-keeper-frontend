@@ -29,10 +29,7 @@ function Login() {
       password: passwordStates.value,
     };
 
-    const response = await sendRequest(userData);
-    console.log(response);
-    // check if ok
-    // set localstorage
+    await sendRequest(userData);
   };
 
   return (

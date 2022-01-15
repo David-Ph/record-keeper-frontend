@@ -18,7 +18,7 @@ import ErrorMessage from "../UI/Notifications/ErrorMessage";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function Register() {
-  const { sendRequest, status, data, error } = useHttp(register);
+  const { sendRequest, status, error } = useHttp(register);
   const usernameStates = useInput(usernameValidator);
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
@@ -32,9 +32,7 @@ function Register() {
       password: passwordStates.value,
     };
 
-    await sendRequest(userData).then(() => {
-      console.log(data);
-    });
+    await sendRequest(userData);
   };
 
   return (
