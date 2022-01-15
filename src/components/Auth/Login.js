@@ -2,7 +2,6 @@ import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Routes } from "../../config/Routes";
 
-
 import useInput from "../../hooks/useInput";
 import {
   passwordValidator,
@@ -36,8 +35,6 @@ function Login() {
 
     if (response.status === 200) {
       AuthCtx.login(response.data.token, response.data.currentUser);
-      // console.log(`token is ${AuthCtx.token}`);
-      // console.log(AuthCtx.user.username);
     }
   };
 

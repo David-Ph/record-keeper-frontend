@@ -1,0 +1,3 @@
+export const AUTH_CONFIG = {
+  TOKEN_DURATION: 3000000,
+};

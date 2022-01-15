@@ -21,9 +21,6 @@ function calculateRemainingTime(expirationTime) {
   const currentTime = new Date().getTime();
   const expTime = new Date(expirationTime).getTime();
 
-  console.log(`currentTime is ${currentTime}`);
-  console.log(`expTIme is ${expTime}`);
-
   return expTime - currentTime;
 }
 
@@ -48,6 +45,7 @@ function retrieveToken() {
 
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveToken();
+
   let initialToken;
   if (tokenData) {
     initialToken = tokenData.token;
@@ -58,10 +56,10 @@ export const AuthContextProvider = (props) => {
   const userIsLoggedIn = !!token; // converts falsy/truthy values into boolean
 
   const logoutHandler = useCallback(() => {
-    setToken(null);
     localStorage.removeItem(LOCALSTORAGE.TOKEN);
     localStorage.removeItem(LOCALSTORAGE.USER);
     localStorage.removeItem(LOCALSTORAGE.EXPIRATION_TIME);
+    setToken(null);
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -69,8 +67,8 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   const initialTime = new Date(
-    new Date().getTime() + AUTH_CONFIG.TOKEN_DURATION * 1000
-  );
+    new Date().getTime() + 3000000 * 1000
+  ).toISOString();
 
   const loginHandler = (token, user, expirationTime = initialTime) => {
     setToken(token);
@@ -80,15 +78,14 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem(LOCALSTORAGE.EXPIRATION_TIME, expirationTime);
 
     const remainingTime = calculateRemainingTime(expirationTime);
-
-    logoutTimer = setTimeout(logoutHandler, remainingTime);
+    // logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
 
-  useEffect(() => {
-    if (tokenData) {
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
-    }
-  }, [tokenData, logoutHandler]);
+  // useEffect(() => {
+  //   if (tokenData) {
+  //     logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+  //   }
+  // }, [tokenData, logoutHandler]);
 
   const contextValue = {
     token: token,
