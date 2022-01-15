@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Routes } from "../../router/Routes";
+import { Routes } from "../../config/Routes";
+
 
 import useInput from "../../hooks/useInput";
 import {
@@ -8,6 +9,7 @@ import {
   emailValidator,
 } from "../../helper/validators/AuthValidator";
 import useHttp from "../../hooks/useHttp";
+import AuthContext from "../../context/auth-context";
 import { login } from "../../lib/api";
 
 import Textbox from "../UI/Textbox/Textbox";
@@ -17,6 +19,7 @@ import ErrorMessage from "../UI/Notifications/ErrorMessage";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function Login() {
+  const AuthCtx = useContext(AuthContext);
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
 
@@ -29,7 +32,13 @@ function Login() {
       password: passwordStates.value,
     };
 
-    await sendRequest(userData);
+    const response = await sendRequest(userData);
+
+    if (response.status === 200) {
+      AuthCtx.login(response.data.token, response.data.currentUser);
+      // console.log(`token is ${AuthCtx.token}`);
+      // console.log(AuthCtx.user.username);
+    }
   };
 
   return (

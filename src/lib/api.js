@@ -6,10 +6,6 @@ export async function login(loginData) {
   try {
     const response = await axios.post(`${API}/auth/login`, loginData);
 
-    // check if ok
-    // set localstorage
-    console.log(response);
-
     return response;
   } catch (error) {
     throw new Error(error.response.data.errors.join(", "));

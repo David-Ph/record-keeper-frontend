@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Routes } from "../../router/Routes";
+import { Routes } from "../../config/Routes";
 
 import useInput from "../../hooks/useInput";
 import {
