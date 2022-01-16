@@ -8,7 +8,8 @@ export async function login(loginData) {
 
     return response;
   } catch (error) {
-    throw new Error(error.response.data.errors.join(", "));
+    const errorMessage = error.response.data.errors;
+    throw new Error(errorMessage);
   }
 }
 

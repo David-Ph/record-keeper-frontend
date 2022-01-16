@@ -11,7 +11,7 @@ import {
 import useHttp from "../../hooks/useHttp";
 import { register } from "../../lib/api";
 
-import Textbox from "../UI/Textbox/Textbox";
+import Textbox from "../UI/TextBox/Textbox";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";

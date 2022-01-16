@@ -66,26 +66,24 @@ export const AuthContextProvider = (props) => {
     }
   }, []);
 
-  const initialTime = new Date(
-    new Date().getTime() + 3000000 * 1000
-  ).toISOString();
+  const loginHandler = (token, user) => {
+    const initialTime =
+      new Date().getTime() + AUTH_CONFIG.TOKEN_DURATION * 1000;
 
-  const loginHandler = (token, user, expirationTime = initialTime) => {
     setToken(token);
     setUser(user);
     localStorage.setItem(LOCALSTORAGE.TOKEN, token);
     localStorage.setItem(LOCALSTORAGE.USER, user);
-    localStorage.setItem(LOCALSTORAGE.EXPIRATION_TIME, expirationTime);
+    localStorage.setItem(LOCALSTORAGE.EXPIRATION_TIME, initialTime);
 
-    const remainingTime = calculateRemainingTime(expirationTime);
-    // logoutTimer = setTimeout(logoutHandler, remainingTime);
+    logoutTimer = setTimeout(logoutHandler, initialTime);
   };
 
-  // useEffect(() => {
-  //   if (tokenData) {
-  //     logoutTimer = setTimeout(logoutHandler, tokenData.duration);
-  //   }
-  // }, [tokenData, logoutHandler]);
+  useEffect(() => {
+    if (tokenData) {
+      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+    }
+  }, [tokenData, logoutHandler]);
 
   const contextValue = {
     token: token,
