@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Routes } from "../../config/Routes";
 
+import AuthContext from "../../context/auth-context";
 import useInput from "../../hooks/useInput";
 import {
   usernameValidator,
@@ -18,6 +19,8 @@ import ErrorMessage from "../UI/Notifications/ErrorMessage";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function Register() {
+  const AuthCtx = useContext(AuthContext);
+  const history = useHistory();
   const { sendRequest, status, error } = useHttp(register);
   const usernameStates = useInput(usernameValidator);
   const emailStates = useInput(emailValidator);
@@ -32,7 +35,12 @@ function Register() {
       password: passwordStates.value,
     };
 
-    await sendRequest(userData);
+    const response = await sendRequest(userData);
+
+    if (response.status === 200) {
+      AuthCtx.login(response.data.token, response.data.currentUser);
+      history.replace(Routes.DASHBOARD_MAIN);
+    }
   };
 
   return (

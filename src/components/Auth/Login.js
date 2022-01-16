@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Routes } from "../../config/Routes";
 
 import useInput from "../../hooks/useInput";
@@ -19,6 +19,7 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function Login() {
   const AuthCtx = useContext(AuthContext);
+  const history = useHistory();
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
 
@@ -35,6 +36,7 @@ function Login() {
 
     if (response.status === 200) {
       AuthCtx.login(response.data.token, response.data.currentUser);
+      history.replace(Routes.DASHBOARD_MAIN);
     }
   };
 

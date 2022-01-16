@@ -1,11 +1,15 @@
+import { useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Routes } from "../config/Routes";
+
+import AuthContext from "../context/auth-context";
 
 import Auth from "../pages/Auth/Auth";
 import Dashboard from "../pages/Dashboard/Dashboard";
 
 function Router() {
-  const isLoggedIn = false;
+  const AuthCtx = useContext(AuthContext);
+  const isLoggedIn = AuthCtx.isLoggedIn;
 
   return (
     <Switch>
