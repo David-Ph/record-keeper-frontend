@@ -1,13 +1,9 @@
-import { Route } from "react-router-dom";
-
-import MainNavigation from "../../components/Layout/MainNavigation";
+import Layout from "../../components/Layout/Layout";
 
 function Dashboard() {
-  return (
-    <div>
-      <MainNavigation />
-    </div>
-  );
+  return <Layout>
+    <h1>This is the dashboard</h1>
+  </Layout>;
 }
 
 export default Dashboard;
