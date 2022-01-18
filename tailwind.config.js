@@ -11,6 +11,10 @@ module.exports = {
         secondary: "#BF1919",
         tertiary: "#2A0301",
       },
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
+        handwritten: ["Courgette", "serif"],
+      },
     },
   },
   plugins: [],
