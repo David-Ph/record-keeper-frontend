@@ -10,6 +10,7 @@ function CampaignOptions() {
       input={{ id: "select-campaign" }}
       label="Select Campaign"
       options={availableCampaigns}
+      inputClasses="font-handwritten text-2xl text-center"
     />
   );
 }
