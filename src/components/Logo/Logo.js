@@ -10,7 +10,7 @@ function Logo() {
     <div className="flex items-center">
       <Link
         to={Routes.DASHBOARD_MAIN}
-        className="md:text-3xl text-xl font-handwritten mr-3"
+        className="mr-3"
       >
         Record Keeper
       </Link>
