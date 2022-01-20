@@ -4,14 +4,15 @@ import ProfileMenu from "./ProfileMenu";
 import ProfileForm from "./ProfileForm";
 
 import AuthContext from "../../context/auth-context";
+import ProfileDropdownContext from "../../context/profileDropdown-context";
 
 function ProfileNav() {
   const AuthCtx = useContext(AuthContext);
-  const [open, setOpen] = useState(false);
+  const dropdownContext = useContext(ProfileDropdownContext);
   const [showProfile, setShowProfile] = useState(false);
 
   const onClickHandler = () => {
-    setOpen(!open);
+    dropdownContext.click();
   };
 
   const onShowProfile = () => {
@@ -37,11 +38,14 @@ function ProfileNav() {
       </div>
 
       <div
-        className={`font-sans absolute top-24 left-48 dropdown-menu ${
-          open ? "dropdown-active" : ""
+        className={`font-sans absolute top-32 md:top-24 md:left-48 dropdown-menu ${
+          dropdownContext.showDropdown ? "dropdown-active" : ""
         }`}
       >
-        <ProfileMenu onShowProfile={onShowProfile} open={open} />
+        <ProfileMenu
+          onShowProfile={onShowProfile}
+          open={dropdownContext.showDropdown}
+        />
       </div>
       {showProfile && <ProfileForm onHideProfile={onHideProfile} />}
     </div>
