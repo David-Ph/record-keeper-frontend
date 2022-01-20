@@ -11,7 +11,7 @@ import useHttp from "../../hooks/useHttp";
 import AuthContext from "../../context/auth-context";
 import { login } from "../../lib/api";
 
-import Textbox from "../UI/TextBox/Textbox";
+import SectionBlock from "../UI/SectionBlock/SectionBlock";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
@@ -42,10 +42,10 @@ function Login() {
 
   return (
     <Fragment>
-      <Textbox>
+      <SectionBlock>
         <h1 className="font-semibold text-2xl">Login</h1>
-      </Textbox>
-      <Textbox>
+      </SectionBlock>
+      <SectionBlock>
         <section>
           <form onSubmit={loginHandler}>
             <Input
@@ -94,7 +94,7 @@ function Login() {
             Register here!
           </Link>
         </p>
-      </Textbox>
+      </SectionBlock>
     </Fragment>
   );
 }

@@ -12,7 +12,7 @@ import {
 import useHttp from "../../hooks/useHttp";
 import { register } from "../../lib/api";
 
-import Textbox from "../UI/TextBox/Textbox";
+import SectionBlock from "../UI/SectionBlock/SectionBlock";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
@@ -45,10 +45,10 @@ function Register() {
 
   return (
     <Fragment>
-      <Textbox>
+      <SectionBlock>
         <h1 className="font-semibold text-2xl">Register</h1>
-      </Textbox>
-      <Textbox>
+      </SectionBlock>
+      <SectionBlock>
         <section>
           <form onSubmit={registerHandler}>
             <Input
@@ -128,7 +128,7 @@ function Register() {
           </Link>{" "}
           to sign in!
         </p>
-      </Textbox>
+      </SectionBlock>
     </Fragment>
   );
 }

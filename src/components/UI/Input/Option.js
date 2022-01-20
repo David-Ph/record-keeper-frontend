@@ -12,7 +12,7 @@ const Option = (props, ref) => {
         {...props.input}
         onChange={props.onChange}
         onBlur={props.onBlur}
-        className={`bg-yellow-100 rounded-md border w-full md:w-2/3 px-2 py-1 box-border focus:outline-teal-600 focus:scale-105 transition-all ${inputClasses ? inputClasses : ""}`}
+        className={`bg-yellow-100 rounded-md border w-full md:w-2/3 px-2 py-1 box-border focus:outline-teal-600 transition-all ${inputClasses ? inputClasses : ""}`}
       >
         {props.options.map((opt) => {
           return <option key={opt} value={opt}>{opt}</option>;
