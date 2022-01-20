@@ -1,9 +1,7 @@
-import Card from "../Card/Card";
-
 function SectionBlock(props) {
   return (
-    <div className="bg-primary rounded-md my-2 border border-black">
-      <Card>{props.children}</Card>
+    <div className="bg-primary rounded-md my-2 p-2 w-full shadow-lg border border-black">
+      {props.children}
     </div>
   );
 }

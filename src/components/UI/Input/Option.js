@@ -2,10 +2,12 @@ import React from "react";
 
 const Option = (props, ref) => {
   const inputClasses = props.inputClasses
+  const labelClasses = props.labelClasses
+
 
   return (
     <div className="flex justify-between m-2 flex-col items-center md:flex-row md:items-center">
-      <label htmlFor={props.input.id} className="md:w-1/3">
+      <label htmlFor={props.input.id} className={`md:w-1/3 ${labelClasses ? labelClasses : ""}`}>
         {props.label}
       </label>
       <select

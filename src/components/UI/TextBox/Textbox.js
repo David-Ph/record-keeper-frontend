@@ -2,7 +2,7 @@ import Card from "../Card/Card";
 
 function Textbox(props) {
   return (
-    <div className="bg-primary rounded-md my-2 border border-black">
+    <div className="rounded-md my-2 flex w-full text-center">
       <Card>{props.children}</Card>
     </div>
   );

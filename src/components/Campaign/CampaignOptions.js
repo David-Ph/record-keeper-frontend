@@ -11,6 +11,7 @@ function CampaignOptions() {
       label="Select Campaign"
       options={availableCampaigns}
       inputClasses="font-handwritten text-2xl text-center"
+      labelClasses="text-xs"
     />
   );
 }

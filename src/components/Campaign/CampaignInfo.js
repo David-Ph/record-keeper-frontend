@@ -3,24 +3,30 @@ import React from "react";
 import CampaignOptions from "./CampaignOptions";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
-import Card from "../UI/Card/Card";
+import Textbox from "../UI/TextBox/Textbox";
+import Button from "../UI/Button/Button";
 
 function CampaignInfo() {
   return (
     <SectionBlock>
-      <div>
-        <CampaignOptions />
-        <div>
-          <Card>
+      <div className="md:flex text-sm">
+        <Textbox>
+          <div className="md:flex-col md:justify-between">
+            <CampaignOptions />
+            <Button >Add Campaign</Button > 
+          </div>
+        </Textbox>
+        <div className="md:ml-2">
+          <Textbox>
             <p>Dungeon Master:</p>
             <p>Nazth</p>
-          </Card>
-          <Card>
+          </Textbox>
+          <Textbox>
             <p>Status:</p>
             <p>On Going</p>
-          </Card>
-          <Card>
-            <p>
+          </Textbox>
+          <Textbox>
+            <p className="text-justify">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea sunt
               corporis pariatur enim nisi quod! Reprehenderit quidem officia
               nisi corporis tempore assumenda voluptatibus modi, cupiditate
@@ -28,7 +34,7 @@ function CampaignInfo() {
               debitis animi ex ad nostrum sed! Voluptatum dicta et similique
               atque ipsam voluptatibus impedit?
             </p>
-          </Card>
+          </Textbox>
         </div>
       </div>
     </SectionBlock>
