@@ -27,6 +27,7 @@ function calculateRemainingTime(expirationTime) {
 function retrieveToken() {
   const storedToken = localStorage.getItem(LOCALSTORAGE.TOKEN);
   const storedExpiration = localStorage.getItem(LOCALSTORAGE.EXPIRATION_TIME);
+  const storedUser = localStorage.getItem(LOCALSTORAGE.USER);
 
   const remainingTime = calculateRemainingTime(storedExpiration);
 
@@ -39,6 +40,7 @@ function retrieveToken() {
 
   return {
     token: storedToken,
+    user: storedUser,
     duration: storedExpiration,
   };
 }
@@ -47,12 +49,14 @@ export const AuthContextProvider = (props) => {
   const tokenData = retrieveToken();
 
   let initialToken;
+  let initialUser;
   if (tokenData) {
     initialToken = tokenData.token;
+    initialUser = JSON.parse(tokenData.user);
   }
 
   const [token, setToken] = useState(initialToken);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(initialUser);
   const userIsLoggedIn = !!token; // converts falsy/truthy values into boolean
 
   const logoutHandler = useCallback(() => {
@@ -72,8 +76,11 @@ export const AuthContextProvider = (props) => {
 
     setToken(token);
     setUser(user);
+
+    const stringifiedUser = JSON.stringify(user);
+
     localStorage.setItem(LOCALSTORAGE.TOKEN, token);
-    localStorage.setItem(LOCALSTORAGE.USER, user);
+    localStorage.setItem(LOCALSTORAGE.USER, stringifiedUser);
     localStorage.setItem(LOCALSTORAGE.EXPIRATION_TIME, initialTime);
 
     logoutTimer = setTimeout(logoutHandler, initialTime);

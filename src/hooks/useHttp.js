@@ -21,7 +21,6 @@ function httpReducer(state, action) {
   }
 
   if (action.type === ACTION_TYPE.SUCCESS) {
-    // console.log(action.responseData);
     return {
       data: action.responseData,
       error: null,

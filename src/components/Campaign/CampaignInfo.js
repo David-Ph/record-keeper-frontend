@@ -13,16 +13,16 @@ function CampaignInfo() {
         <Textbox>
           <div className="md:flex md:flex-col md:justify-center">
             <CampaignOptions />
-            <Button >New Campaign</Button > 
+            <Button>New Campaign</Button>
           </div>
         </Textbox>
         <div className="md:ml-2">
           <Textbox>
-            <p>Dungeon Master:</p>
+            <p className="font-semibold">Dungeon Master:</p>
             <p>Nazth</p>
           </Textbox>
           <Textbox>
-            <p>Status:</p>
+            <p className="font-semibold">Status:</p>
             <p>On Going</p>
           </Textbox>
           <Textbox>
