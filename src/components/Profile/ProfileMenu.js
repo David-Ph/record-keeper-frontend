@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 
 import AuthContext from "../../context/auth-context";
 
 import Card from "../UI/Card/Card";
 
-function ProfileMenu() {
+function ProfileMenu(props) {
   const AuthCtx = useContext(AuthContext);
-  const onEditProfile = () => {};
+  const onEditProfile = () => {
+    props.onShowProfile();
+  };
 
   const onLogout = () => {
     AuthCtx.logout();
@@ -14,22 +16,26 @@ function ProfileMenu() {
 
   return (
     <div className="bg-primary text-base w-72 rounded-md border border-black">
-      <div
-        onClick={onEditProfile}
-        className="hover:bg-secondary hover:cursor-pointer hover:text-white rounded-md"
-      >
-        <Card>
-          <p>Edit Profile</p>
-        </Card>
-      </div>
-      <div
-        onClick={onLogout}
-        className="hover:bg-secondary hover:cursor-pointer hover:text-white rounded-md"
-      >
-        <Card>
-          <p>Logout</p>
-        </Card>
-      </div>
+      {props.open && (
+        <Fragment>
+          <div
+            onClick={onEditProfile}
+            className="hover:bg-secondary hover:cursor-pointer hover:text-white rounded-md"
+          >
+            <Card>
+              <p>Edit Profile</p>
+            </Card>
+          </div>
+          <div
+            onClick={onLogout}
+            className="hover:bg-secondary hover:cursor-pointer hover:text-white rounded-md"
+          >
+            <Card>
+              <p>Logout</p>
+            </Card>
+          </div>
+        </Fragment>
+      )}
     </div>
   );
 }
