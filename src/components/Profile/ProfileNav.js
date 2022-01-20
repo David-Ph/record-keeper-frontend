@@ -38,7 +38,7 @@ function ProfileNav() {
       </div>
 
       <div
-        className={`font-sans absolute top-32 md:top-24 md:left-48 dropdown-menu ${
+        className={`font-sans absolute md:ml-16 md:mt-32 mt-10 dropdown-menu ${
           dropdownContext.showDropdown ? "dropdown-active" : ""
         }`}
       >
