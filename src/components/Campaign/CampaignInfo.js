@@ -11,9 +11,9 @@ function CampaignInfo() {
     <SectionBlock>
       <div className="md:flex text-sm">
         <Textbox>
-          <div className="md:flex-col md:justify-between">
+          <div className="md:flex md:flex-col md:justify-center">
             <CampaignOptions />
-            <Button >Add Campaign</Button > 
+            <Button >New Campaign</Button > 
           </div>
         </Textbox>
         <div className="md:ml-2">
