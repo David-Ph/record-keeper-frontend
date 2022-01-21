@@ -8,11 +8,11 @@ import ProfileDropdownContext from "../../context/profileDropdown-context";
 
 function ProfileNav() {
   const AuthCtx = useContext(AuthContext);
-  const dropdownContext = useContext(ProfileDropdownContext);
+  const DropdownContext = useContext(ProfileDropdownContext);
   const [showProfile, setShowProfile] = useState(false);
 
-  const onClickHandler = () => {
-    dropdownContext.click();
+  const onClickHandler = (event) => {
+    DropdownContext.click(event.target);
   };
 
   const onShowProfile = () => {
@@ -26,12 +26,12 @@ function ProfileNav() {
   return (
     <div className="md:-order-last py-2 flex flex-col md:flex-row items-center">
       <div
-        className="rounded-full p-2 flex justify-center items-center hover:cursor-pointer hover:bg-secondary hover:text-white "
+        className="rounded-full p-2 flex justify-center items-center hover:cursor-pointer hover:bg-secondary hover:text-white navDropdown"
         onClick={onClickHandler}
       >
         <img
-          className="w-12 mr-3 rounded-full"
-          src={AuthCtx.user.avatar}
+          className="w-12 mr-3 rounded-full navDropdown"
+          src={AuthCtx.user?.avatar}
           alt=""
         />
         {AuthCtx.user?.username}'s Adventure
@@ -39,12 +39,12 @@ function ProfileNav() {
 
       <div
         className={`font-sans absolute md:ml-16 md:mt-32 mt-10 dropdown-menu ${
-          dropdownContext.showDropdown ? "dropdown-active" : ""
+          DropdownContext.showDropdown ? "dropdown-active" : ""
         }`}
       >
         <ProfileMenu
           onShowProfile={onShowProfile}
-          open={dropdownContext.showDropdown}
+          open={DropdownContext.showDropdown}
         />
       </div>
       {showProfile && <ProfileForm onHideProfile={onHideProfile} />}

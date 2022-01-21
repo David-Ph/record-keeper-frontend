@@ -10,8 +10,12 @@ export default ProfileDropdownContext;
 export const ProfiledropdownProvider = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const clickHandler = () => {
-    setShowDropdown(!showDropdown);
+  const clickHandler = (target) => {
+    if (target.classList.contains("navDropdown")) {
+      setShowDropdown(!showDropdown);
+    } else {
+      setShowDropdown(false);
+    }
   };
 
   const contextValue = {
