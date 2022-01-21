@@ -13,7 +13,7 @@ const Backdrop = (props) => {
 
 const Overlay = (props) => {
   return (
-    <div className="fixed top-[20vh] left-1/4 z-30">
+    <div className="absolute mx-auto top-[10vh] w-4/5 max-w-xl z-30">
       <SectionBlock>{props.children}</SectionBlock>
     </div>
   );
@@ -30,7 +30,9 @@ function Modal(props) {
           modalOverlay
         )}
         {ReactDOM.createPortal(
-          <Overlay>{props.children}</Overlay>,
+          <div className="flex justify-center">
+            <Overlay>{props.children}</Overlay>
+          </div>,
           modalOverlay
         )}
       </Fragment>
