@@ -9,7 +9,7 @@ function MainNavigation() {
   return (
     <header>
       <SectionBlock>
-        <div className="flex flex-col md:text-3xl text-xl font-handwritten  items-center justify-between md:flex-row">
+        <div className="flex flex-col md:text-3xl text-xl font-handwritten items-center justify-between md:flex-row">
           <Logo />
           <ProfileNav />
         </div>

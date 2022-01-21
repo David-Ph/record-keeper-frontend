@@ -1,9 +1,12 @@
 function Button(props) {
+  const { color, width } = props;
+
+  const buttonWidth = width ? width : "w-full";
+  const buttonColor = color ? color : "bg-secondary text-white";
+
   return (
     <button
-      className={`rounded-md border border-black mt-2 px-2 py-1 box-border bg-secondary text-white ${
-        props.width ? `w-${props.width}` : "w-full"
-      } hover:bg-tertiary`}
+      className={`rounded-md border border-black mt-2 px-2 py-1 box-border hover:bg-tertiary ${buttonWidth} ${buttonColor}`}
       onClick={props.onClick}
       type={props.type || "button"}
     >

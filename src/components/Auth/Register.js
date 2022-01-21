@@ -13,6 +13,7 @@ import useHttp from "../../hooks/useHttp";
 import { register } from "../../lib/api";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
+import Title from "../UI/Typography/Title";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
@@ -46,7 +47,7 @@ function Register() {
   return (
     <Fragment>
       <SectionBlock>
-        <h1 className="font-semibold text-2xl">Register</h1>
+        <Title>Register</Title>
       </SectionBlock>
       <SectionBlock>
         <section>

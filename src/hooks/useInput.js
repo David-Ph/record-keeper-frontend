@@ -37,6 +37,13 @@ function useInput(validationFn) {
     });
   };
 
+  const setValueHandler = (newValue) => {
+    inputDispatcher({
+      type: "CHANGE",
+      value: newValue,
+    });
+  };
+
   const valueInputBlurHandler = (event) => {
     inputDispatcher({ type: "BLUR" });
   };
@@ -50,6 +57,7 @@ function useInput(validationFn) {
     validity,
     hasError,
     resetInput,
+    setValueHandler,
     valueChangeHandler,
     valueInputBlurHandler,
   };

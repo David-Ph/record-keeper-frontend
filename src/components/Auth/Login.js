@@ -12,6 +12,7 @@ import AuthContext from "../../context/auth-context";
 import { login } from "../../lib/api";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
+import Title from "../UI/Typography/Title";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
@@ -43,7 +44,7 @@ function Login() {
   return (
     <Fragment>
       <SectionBlock>
-        <h1 className="font-semibold text-2xl">Login</h1>
+        <Title>Login</Title>
       </SectionBlock>
       <SectionBlock>
         <section>
