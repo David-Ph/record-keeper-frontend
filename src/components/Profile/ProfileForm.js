@@ -1,8 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 import AuthContext from "../../context/auth-context";
 import useInput from "../../hooks/useInput";
+import useHttp from "../../hooks/useHttp";
+import { editProfile } from "../../lib/api";
 import { usernameValidator } from "../../helper/validators/AuthValidator";
+import { avatarValidator } from "../../helper/validators/AuthValidator";
 
 import Modal from "../Modal/Modal";
 import Title from "../UI/Typography/Title";
@@ -13,6 +16,9 @@ import ErrorMessage from "../UI/Notifications/ErrorMessage";
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
   const usernameStates = useInput(usernameValidator);
+  const avatarStates = useInput(avatarValidator);
+  const avatarRef = useRef(null);
+  const { sendRequest } = useHttp(editProfile);
 
   const currentUsername = AuthCtx.user?.username;
 
@@ -22,13 +28,28 @@ function ProfileForm(props) {
     }
   }, [currentUsername]);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    const userData = {
+      username: usernameStates.value,
+      avatar: avatarStates.value,
+    };
+
+    const response = await sendRequest(userData);
+
+    if (response.status === 200) {
+      console.log("ok!");
+    }
+  };
+
   return (
     <Modal onClick={props.onHideProfile}>
       <Title>Edit Profile</Title>
       <section>
-        <form encType="multipart/form-data">
+        <form encType="multipart/form-data" onSubmit={submitHandler}>
           <Input
-            label="New Username:"
+            label="Edit Username:"
             isValid={usernameStates.validity.isValid}
             onChange={usernameStates.valueChangeHandler}
             onBlur={usernameStates.valueInputBlurHandler}
@@ -43,10 +64,22 @@ function ProfileForm(props) {
           {usernameStates.hasError && (
             <ErrorMessage message={usernameStates.validity.message} />
           )}
-          <div className="flex justify-between m-2 flex-col md:flex-row">
-            <label htmlFor="avatar">Avatar</label>
-            <input type="file" id="avatar" />
-          </div>
+
+          <Input
+            label="Avatar:"
+            ref={avatarRef}
+            isValid={avatarStates.validity.isValid}
+            onChange={avatarStates.fileChangeHandler}
+            onBlur={avatarStates.valueInputBlurHandler}
+            input={{
+              id: "avatar",
+              type: "file",
+              accept: "image/*",
+            }}
+          />
+          {avatarStates.hasError && (
+            <ErrorMessage message={avatarStates.validity.message} />
+          )}
 
           <div className="buttons">
             <Button type="submit">Submit</Button>

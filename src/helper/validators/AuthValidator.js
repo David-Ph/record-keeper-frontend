@@ -30,3 +30,11 @@ export const passwordValidator = (password = "") => {
     : "Password needs to have at least 6 characters, 1 uppercase, and 1 lowercase";
   return { isValid, message };
 };
+
+export const avatarValidator = (file) => {
+  const isValid = file?.size < 2048000 && file?.type.includes("image");
+
+  const message = isValid ? "OK" : "Avatar size cannot exceed more than 2MB";
+
+  return { isValid, message };
+};

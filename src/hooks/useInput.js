@@ -37,6 +37,13 @@ function useInput(validationFn) {
     });
   };
 
+  const fileChangeHandler = (event) => {
+    inputDispatcher({
+      type: "CHANGE",
+      value: event.target.files[0],
+    });
+  };
+
   const setValueHandler = (newValue) => {
     inputDispatcher({
       type: "CHANGE",
@@ -60,6 +67,7 @@ function useInput(validationFn) {
     setValueHandler,
     valueChangeHandler,
     valueInputBlurHandler,
+    fileChangeHandler,
   };
 }
 
