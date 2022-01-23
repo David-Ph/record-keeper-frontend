@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
+import { Routes } from "../../config/Routes";
 
 import AuthContext from "../../context/auth-context";
 import useInput from "../../hooks/useInput";
@@ -12,13 +14,15 @@ import Title from "../UI/Typography/Title";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
+  const history = useHistory();
   const usernameStates = useInput(usernameValidator);
   const avatarStates = useInput(avatarValidator);
   const avatarRef = useRef(null);
-  const { sendRequest } = useHttp(editProfile);
+  const { sendRequest, error, status } = useHttp(editProfile);
 
   const currentUsername = AuthCtx.user?.username;
 
@@ -32,14 +36,15 @@ function ProfileForm(props) {
     e.preventDefault();
 
     const userData = {
-      username: usernameStates.value,
-      avatar: avatarStates.value,
+      username: usernameStates.value || AuthCtx.user.username,
+      avatar: avatarStates.value || AuthCtx.user.avatar,
     };
 
     const response = await sendRequest(userData, AuthCtx.token);
 
-    if (response.status === 200) {
-      console.log("ok!");
+    if (response?.status === 201) {
+      AuthCtx.login(AuthCtx.token, response.data.newData);
+      history.replace(Routes.DASHBOARD_MAIN);
     }
   };
 
@@ -81,12 +86,18 @@ function ProfileForm(props) {
             <ErrorMessage message={avatarStates.validity.message} />
           )}
 
-          <div className="buttons">
-            <Button type="submit">Submit</Button>
-            <Button type="button" color="bg-primary hover:text-white">
-              Cancel
-            </Button>
-          </div>
+          {error && <ErrorMessage message={error} />}
+
+          {status === "pending" ? (
+            <LoadingSpinner />
+          ) : (
+            <div className="buttons">
+              <Button type="submit">Submit</Button>
+              <Button type="button" color="bg-primary hover:text-white">
+                Cancel
+              </Button>
+            </div>
+          )}
         </form>
       </section>
     </Modal>

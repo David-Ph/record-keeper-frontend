@@ -38,7 +38,7 @@ function Register() {
 
     const response = await sendRequest(userData);
 
-    if (response.status === 200) {
+    if (response?.status === 200) {
       AuthCtx.login(response.data.token, response.data.currentUser);
       history.replace(Routes.DASHBOARD_MAIN);
     }
