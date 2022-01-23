@@ -36,7 +36,7 @@ function ProfileForm(props) {
       avatar: avatarStates.value,
     };
 
-    const response = await sendRequest(userData);
+    const response = await sendRequest(userData, AuthCtx.token);
 
     if (response.status === 200) {
       console.log("ok!");

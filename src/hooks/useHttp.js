@@ -47,10 +47,10 @@ function useHttp(requestFunction, startWithPending = false) {
   });
 
   const sendRequest = useCallback(
-    async function (requestData) {
+    async function (requestData, token = "") {
       dispatch({ type: ACTION_TYPE.SEND });
       try {
-        const responseData = await requestFunction(requestData);
+        const responseData = await requestFunction(requestData, token);
 
         dispatch({ type: ACTION_TYPE.SUCCESS, responseData });
 

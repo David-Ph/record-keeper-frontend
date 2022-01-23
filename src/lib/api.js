@@ -40,7 +40,7 @@ export async function editProfile(newData, token) {
     const formData = new FormData();
     formData.append("username", newData.username);
     formData.append("avatar", newData.avatar);
-
+    console.log(token);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -50,9 +50,9 @@ export async function editProfile(newData, token) {
       withCredentials: false,
     };
     console.log("SENDING");
-    const response = await axios.post(`${API}/auth/edit`, formData, config);
+    // const response = await axios.put(`${API}/auth/edit`, formData, config);
 
-    console.log(response);
+    // console.log(response);
 
     // return response;
   } catch (error) {
