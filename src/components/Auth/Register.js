@@ -22,25 +22,34 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 function Register() {
   const AuthCtx = useContext(AuthContext);
   const history = useHistory();
-  const { sendRequest, status, error } = useHttp(register);
   const usernameStates = useInput(usernameValidator);
   const emailStates = useInput(emailValidator);
   const passwordStates = useInput(passwordValidator);
   const confirmPasswordStates = useInput(passwordValidator);
+  
+  const { sendRequest, status, error } = useHttp(register);
+
+  const formIsValid =
+    emailStates.validity.isValid &&
+    passwordStates.validity.isValid &&
+    confirmPasswordStates.validity.isValid;
 
   const registerHandler = async (event) => {
     event.preventDefault();
-    const userData = {
-      username: usernameStates.value,
-      email: emailStates.value,
-      password: passwordStates.value,
-    };
 
-    const response = await sendRequest(userData);
+    if (formIsValid) {
+      const userData = {
+        username: usernameStates.value,
+        email: emailStates.value,
+        password: passwordStates.value,
+      };
 
-    if (response?.status === 200) {
-      AuthCtx.login(response.data.token, response.data.currentUser);
-      history.replace(Routes.DASHBOARD_MAIN);
+      const response = await sendRequest(userData);
+
+      if (response?.status === 200) {
+        AuthCtx.login(response.data.token, response.data.currentUser);
+        history.replace(Routes.DASHBOARD_MAIN);
+      }
     }
   };
 

@@ -26,18 +26,24 @@ function Login() {
 
   const { sendRequest, error, status } = useHttp(login);
 
+  const formIsValid =
+    emailStates.validity.isValid && passwordStates.validity.isValid;
+
   const loginHandler = async (event) => {
     event.preventDefault();
-    const userData = {
-      email: emailStates.value,
-      password: passwordStates.value,
-    };
 
-    const response = await sendRequest(userData);
+    if (formIsValid) {
+      const userData = {
+        email: emailStates.value,
+        password: passwordStates.value,
+      };
 
-    if (response?.status === 200) {
-      AuthCtx.login(response.data.token, response.data.currentUser);
-      history.replace(Routes.DASHBOARD_MAIN);
+      const response = await sendRequest(userData);
+
+      if (response?.status === 200) {
+        AuthCtx.login(response.data.token, response.data.currentUser);
+        history.replace(Routes.DASHBOARD_MAIN);
+      }
     }
   };
 
