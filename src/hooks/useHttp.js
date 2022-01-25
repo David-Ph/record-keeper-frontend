@@ -6,7 +6,7 @@ const ACTION_TYPE = {
   ERROR: "ERROR",
 };
 
-const HTTP_STATUS = {
+export const HTTP_STATUS = {
   PENDING: "pending",
   COMPLETED: "completed",
 };

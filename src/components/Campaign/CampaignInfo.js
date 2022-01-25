@@ -1,25 +1,57 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import CampaignOptions from "./CampaignOptions";
 
-import useHttp from "../../hooks/useHttp";
-import { getCampaigns } from "../../lib/api";
+import useHttp, { HTTP_STATUS } from "../../hooks/useHttp";
+import AuthContext from "../../context/auth-context";
+import { getCampaigns } from "../../lib/campaignApi";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
 import Textbox from "../UI/TextBox/Textbox";
 import Button from "../UI/Button/Button";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function CampaignInfo() {
-  const getCampaignsStates = useHttp(getCampaigns);
+  const { token } = useContext(AuthContext);
+
+  const {
+    sendRequest: getCampaignRequest,
+    status: getCampaignStatus,
+    data: getCampaignData,
+    error: getCampaignError,
+  } = useHttp(getCampaigns, true);
+
+  const [activeCampaign, setActiveCampaign] = useState();
+
+  useEffect(() => {
+    getCampaignRequest("", token);
+  }, [getCampaignRequest, token]);
+
+  if (getCampaignStatus === HTTP_STATUS.PENDING) {
+    return (
+      <SectionBlock>
+        <div className="flex justify-center items-center p-2">
+          <LoadingSpinner />
+        </div>
+      </SectionBlock>
+    );
+  }
 
   return (
     <SectionBlock>
       <div className="md:flex text-sm">
         <Textbox>
-          <div className="md:flex md:flex-col md:justify-center">
+          <div className="md:flex md:flex-col md:justify-center ">
             <CampaignOptions />
             <Button>New Campaign</Button>
-            <Button color="bg-primary hover:text-white">Edit Campaign</Button>
+            <div>
+              <Button width="w-1/2" color="bg-primary hover:text-white">
+                Delete
+              </Button>
+              <Button width="w-1/2" color="bg-primary hover:text-white">
+                Edit
+              </Button>
+            </div>
           </div>
         </Textbox>
         <div className="md:ml-2">
