@@ -2,7 +2,7 @@ import React from "react";
 
 import Option from "../UI/Input/Option";
 
-function CampaignOptions() {
+function CampaignOptions(props) {
   const availableCampaigns = ["Saltshakers", "Treefucqers"];
 
   return (

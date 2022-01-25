@@ -2,6 +2,8 @@ import axios from "axios";
 
 const API = process.env.REACT_APP_API;
 
+// Login and Register
+// //////////////////
 export async function login(loginData) {
   try {
     const response = await axios.post(`${API}/auth/login`, loginData);
@@ -23,6 +25,8 @@ export async function register(registerData) {
   }
 }
 
+// Get and Edit Profile
+// //////////////////
 export async function getProfile(token) {
   try {
     const response = await axios.get(`${API}/auth/user`, {

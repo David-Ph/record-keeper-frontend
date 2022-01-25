@@ -2,11 +2,16 @@ import React from "react";
 
 import CampaignOptions from "./CampaignOptions";
 
+import useHttp from "../../hooks/useHttp";
+import { getCampaigns } from "../../lib/api";
+
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
 import Textbox from "../UI/TextBox/Textbox";
 import Button from "../UI/Button/Button";
 
 function CampaignInfo() {
+  const getCampaignsStates = useHttp(getCampaigns);
+
   return (
     <SectionBlock>
       <div className="md:flex text-sm">
@@ -14,6 +19,7 @@ function CampaignInfo() {
           <div className="md:flex md:flex-col md:justify-center">
             <CampaignOptions />
             <Button>New Campaign</Button>
+            <Button color="bg-primary hover:text-white">Edit Campaign</Button>
           </div>
         </Textbox>
         <div className="md:ml-2">
