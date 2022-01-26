@@ -1,18 +1,24 @@
 import React, { useContext, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import ProfileMenu from "./ProfileMenu";
 import ProfileForm from "./ProfileForm";
 
 import AuthContext from "../../context/auth-context";
-import ProfileDropdownContext from "../../context/profileDropdown-context";
+import { dropdownActions } from "../../store/profiledropdown-slice";
 
 function ProfileNav() {
   const AuthCtx = useContext(AuthContext);
-  const DropdownContext = useContext(ProfileDropdownContext);
+  const dispatch = useDispatch();
+  const dropdownIsVisible = useSelector(
+    (state) => state.profileDropdown.showDropdown
+  );
   const [showProfile, setShowProfile] = useState(false);
 
   const onClickHandler = (event) => {
-    DropdownContext.click(event.target);
+    const isNavDropdown = event.target.classList.contains("navDropdown");
+    if (isNavDropdown) return;
+    dispatch(dropdownActions.clickHandler(isNavDropdown));
   };
 
   const onShowProfile = () => {
@@ -39,13 +45,10 @@ function ProfileNav() {
 
       <div
         className={`font-sans absolute md:ml-16 md:mt-32 mt-10 dropdown-menu ${
-          DropdownContext.showDropdown ? "dropdown-active" : ""
+          dropdownIsVisible ? "dropdown-active" : ""
         }`}
       >
-        <ProfileMenu
-          onShowProfile={onShowProfile}
-          open={DropdownContext.showDropdown}
-        />
+        <ProfileMenu onShowProfile={onShowProfile} open={dropdownIsVisible} />
       </div>
       {showProfile && <ProfileForm onHideProfile={onHideProfile} />}
     </div>

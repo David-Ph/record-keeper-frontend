@@ -1,19 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth-context";
-import { ProfiledropdownProvider } from "./context/profileDropdown-context";
 import "./index.css";
 import App from "./App";
+import store from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <ProfiledropdownProvider>
         <BrowserRouter>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </BrowserRouter>
-      </ProfiledropdownProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

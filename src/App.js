@@ -1,13 +1,16 @@
 import "./App.css";
-import React, { useContext } from "react";
+import React from "react";
 import Router from "./router/Router";
-import ProfileDropdownContext from "./context/profileDropdown-context";
+import { useDispatch } from "react-redux";
+
+import { dropdownActions } from "./store/profiledropdown-slice";
 
 function App() {
-  const DropdownContext = useContext(ProfileDropdownContext);
+  const dispatch = useDispatch();
 
   const onClickHandler = (event) => {
-    DropdownContext.click(event.target);
+    const isNavDropdown = event.target.classList.contains("navDropdown");
+    dispatch(dropdownActions.clickHandler(isNavDropdown));
   };
 
   return (
