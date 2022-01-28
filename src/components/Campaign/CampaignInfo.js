@@ -1,22 +1,25 @@
 import React, { useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import CampaignOptions from "./CampaignOptions";
 
-import useHttp, { HTTP_STATUS } from "../../hooks/useHttp";
 import AuthContext from "../../context/auth-context";
-import { getCampaigns } from "../../lib/campaignApi";
+import { getCampaignsData } from "../../store/campaign/campaign-actions";
+// import { campaignActions } from "../../store/campaign/campaign-slice";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
 import Textbox from "../UI/TextBox/Textbox";
 import Button from "../UI/Button/Button";
-import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+// import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function CampaignInfo() {
   const { token } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  // const campaignsData = useSelector((state) => state.campaign);
 
-  // useEffect(() => {
-  //   getCampaignRequest("", token);
-  // }, [getCampaignRequest, token]);
+  useEffect(() => {
+    dispatch(getCampaignsData("", token));
+  }, [token, dispatch]);
 
   // if (getCampaignStatus === HTTP_STATUS.PENDING) {
   //   return (
