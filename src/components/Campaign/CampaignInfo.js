@@ -1,7 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import CampaignOptions from "./CampaignOptions";
+import CampaignForm from "./CampaignForm";
+import DeleteCampaign from "./DeleteCampaign";
 
 import AuthContext from "../../context/auth-context";
 import { getCampaignsData } from "../../store/campaign/campaign-actions";
@@ -17,6 +19,9 @@ function CampaignInfo() {
   const dispatch = useDispatch();
   const campaignsData = useSelector((state) => state.campaign);
   const httpUI = useSelector((state) => state.httpUI);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     dispatch(getCampaignsData("", token));
@@ -32,6 +37,26 @@ function CampaignInfo() {
     );
   }
 
+  const onAddCampaignHandler = () => {
+    setShowAddModal(true);
+  };
+
+  const onEditCampaignHandler = () => {
+    setShowEditModal(true);
+  };
+
+  const onHideAddHandler = () => {
+    setShowAddModal(false);
+  };
+
+  const onHideEditHandler = () => {
+    setShowEditModal(false);
+  };
+
+  const onHideDeleteHandler = () => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <SectionBlock>
       <div className="md:flex text-sm">
@@ -39,12 +64,20 @@ function CampaignInfo() {
           <Textbox>
             <div className="md:flex md:flex-col md:justify-center w-full">
               <CampaignOptions campaigns={campaignsData.campaignsList} />
-              <Button>New Campaign</Button>
+              <Button onClick={onAddCampaignHandler}>New Campaign</Button>
               <div>
-                <Button width="w-1/2" color="bg-primary hover:text-white">
+                <Button
+                  onClick={setShowDeleteModal}
+                  width="w-1/2"
+                  color="bg-primary hover:text-white"
+                >
                   Delete
                 </Button>
-                <Button width="w-1/2" color="bg-primary hover:text-white">
+                <Button
+                  onClick={onEditCampaignHandler}
+                  width="w-1/2"
+                  color="bg-primary hover:text-white"
+                >
                   Edit
                 </Button>
               </div>
@@ -75,6 +108,9 @@ function CampaignInfo() {
           </Textbox>
         </div>
       </div>
+      {showAddModal && <CampaignForm onHide={onHideAddHandler} />}
+      {showEditModal && <CampaignForm onHide={onHideEditHandler} mode="edit" />}
+      {showDeleteModal && <DeleteCampaign onHide={onHideDeleteHandler} />}
     </SectionBlock>
   );
 }
