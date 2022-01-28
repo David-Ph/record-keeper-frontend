@@ -3,12 +3,16 @@ import React from "react";
 import Option from "../UI/Input/Option";
 
 function CampaignOptions(props) {
-  const availableCampaigns = props.campaigns.map((campaign) => {
-    return {
-      id: campaign._id,
-      label: campaign.title,
-    };
-  });
+  let availableCampaigns = [];
+
+  if (Array.isArray(props.campaigns)) {
+    availableCampaigns = props.campaigns.map((campaign) => {
+      return {
+        id: campaign._id,
+        label: campaign.title,
+      };
+    });
+  }
 
   return (
     <Option

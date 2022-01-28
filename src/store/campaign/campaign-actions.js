@@ -26,7 +26,6 @@ export const getCampaignsData = (params, token) => {
         );
       }
     } catch (error) {
-      // set error state
       dispatch(campaignActions.getAllCampaigns(initialCampaignState));
       dispatch(
         httpUIActions.campaignHandler({

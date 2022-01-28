@@ -5,7 +5,7 @@ import CampaignOptions from "./CampaignOptions";
 
 import AuthContext from "../../context/auth-context";
 import { getCampaignsData } from "../../store/campaign/campaign-actions";
-import { campaignActions } from "../../store/campaign/campaign-slice";
+// import { campaignActions } from "../../store/campaign/campaign-slice";
 import { HTTP_STATUS } from "../../hooks/useHttp";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
@@ -38,7 +38,7 @@ function CampaignInfo() {
       <div className="md:flex text-sm">
         <div className="md:w-1/3">
           <Textbox>
-            <div className="md:flex md:flex-col md:justify-center">
+            <div className="md:flex md:flex-col md:justify-center w-full">
               <CampaignOptions campaigns={campaignsData.campaignsList} />
               <Button>New Campaign</Button>
               <div>

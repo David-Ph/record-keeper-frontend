@@ -20,7 +20,7 @@ const campaignSlice = createSlice({
   initialState: initialCampaignState,
   reducers: {
     getAllCampaigns(state, action) {
-      state.campaignsList = action.payload;
+      state.campaignsList = action.payload || [];
     },
     switchCampaign(state, action) {
       state.activeCampaign = action.payload;
