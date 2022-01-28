@@ -2,7 +2,7 @@ import {
   // addCampaign,
   // deleteCampaign,
   getCampaigns,
-  // getOneCampaign,
+  getOneCampaign,
   // editCampaign,
 } from "../../lib/campaignApi";
 
@@ -27,6 +27,30 @@ export const getCampaignsData = (params, token) => {
       }
     } catch (error) {
       dispatch(campaignActions.getAllCampaigns(initialCampaignState));
+      dispatch(
+        httpUIActions.campaignHandler({
+          status: HTTP_STATUS.COMPLETED,
+          error: error.message || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+
+export const getOneCampaignData = (campaignId, token) => {
+  return async (dispatch) => {
+    try {
+      dispatch(httpUIActions.campaignHandler({ status: HTTP_STATUS.PENDING }));
+
+      const campaign = await getOneCampaign(campaignId, token);
+
+      if (campaign.status === 200) {
+        dispatch(campaignActions.switchCampaign(campaign.data.data));
+        dispatch(
+          httpUIActions.campaignHandler({ status: HTTP_STATUS.COMPLETED })
+        );
+      }
+    } catch (error) {
       dispatch(
         httpUIActions.campaignHandler({
           status: HTTP_STATUS.COMPLETED,

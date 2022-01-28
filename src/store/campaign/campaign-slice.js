@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const initialCampaignState = {
   activeCampaign: {
     title: "No Campaign Selected",
-    DM: "No Campaign Selected",
+    dungeonMaster: "No Campaign Selected",
     status: "No Campaign Selected",
     description: "No Campaign Selected",
     id: "",

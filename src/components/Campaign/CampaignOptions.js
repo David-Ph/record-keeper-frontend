@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import AuthContext from "../../context/auth-context";
+import { getOneCampaignData } from "../../store/campaign/campaign-actions";
 
 import Option from "../UI/Input/Option";
 
 function CampaignOptions(props) {
+  const { token } = useContext(AuthContext);
+  const dispatch = useDispatch();
   let availableCampaigns = [];
 
   if (Array.isArray(props.campaigns)) {
@@ -14,10 +20,15 @@ function CampaignOptions(props) {
     });
   }
 
+  const onSelectCampaign = (event) => {
+    const id = event.target.value;
+    dispatch(getOneCampaignData(id, token));
+  };
+
   return (
     <Option
       input={{ id: "select-campaign" }}
-      label="Select Campaign"
+      onChange={onSelectCampaign}
       options={availableCampaigns}
       inputClasses="font-handwritten text-2xl text-center"
       labelClasses="text-xs"

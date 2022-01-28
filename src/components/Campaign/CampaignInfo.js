@@ -5,7 +5,6 @@ import CampaignOptions from "./CampaignOptions";
 
 import AuthContext from "../../context/auth-context";
 import { getCampaignsData } from "../../store/campaign/campaign-actions";
-// import { campaignActions } from "../../store/campaign/campaign-slice";
 import { HTTP_STATUS } from "../../hooks/useHttp";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
@@ -36,7 +35,7 @@ function CampaignInfo() {
   return (
     <SectionBlock>
       <div className="md:flex text-sm">
-        <div className="md:w-1/3">
+        <div className="md:w-1/3 md:flex md:flex-col md:justify-center">
           <Textbox>
             <div className="md:flex md:flex-col md:justify-center w-full">
               <CampaignOptions campaigns={campaignsData.campaignsList} />
@@ -54,8 +53,12 @@ function CampaignInfo() {
         </div>
         <div className="md:ml-2 md:w-2/3">
           <Textbox>
+            <p className="font-semibold">Title:</p>
+            <p>{campaignsData.activeCampaign.title}</p>
+          </Textbox>
+          <Textbox>
             <p className="font-semibold">Dungeon Master:</p>
-            <p>{campaignsData.activeCampaign.DM}</p>
+            <p>{campaignsData.activeCampaign.dungeonMaster}</p>
           </Textbox>
           <Textbox>
             <p className="font-semibold">Status:</p>
@@ -63,7 +66,11 @@ function CampaignInfo() {
           </Textbox>
           <Textbox>
             <p className="text-justify">
-              {campaignsData.activeCampaign.description}
+              {/* {campaignsData.activeCampaign.description} */}
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Similique ipsam voluptas doloribus, eum iusto vitae asperiores ab
+              eius libero itaque hic odit blanditiis voluptates ex corrupti,
+              amet laboriosam cupiditate quasi harum voluptatibus suscipit.
             </p>
           </Textbox>
         </div>
