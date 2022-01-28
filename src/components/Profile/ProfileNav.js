@@ -5,7 +5,7 @@ import ProfileMenu from "./ProfileMenu";
 import ProfileForm from "./ProfileForm";
 
 import AuthContext from "../../context/auth-context";
-import { dropdownActions } from "../../store/profiledropdown-slice";
+import { dropdownActions } from "../../store/profile/profiledropdown-slice";
 
 function ProfileNav() {
   const AuthCtx = useContext(AuthContext);

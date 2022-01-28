@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 
 import CampaignOptions from "./CampaignOptions";
 
@@ -14,28 +14,19 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 function CampaignInfo() {
   const { token } = useContext(AuthContext);
 
-  const {
-    sendRequest: getCampaignRequest,
-    status: getCampaignStatus,
-    data: getCampaignData,
-    error: getCampaignError,
-  } = useHttp(getCampaigns, true);
+  // useEffect(() => {
+  //   getCampaignRequest("", token);
+  // }, [getCampaignRequest, token]);
 
-  const [activeCampaign, setActiveCampaign] = useState();
-
-  useEffect(() => {
-    getCampaignRequest("", token);
-  }, [getCampaignRequest, token]);
-
-  if (getCampaignStatus === HTTP_STATUS.PENDING) {
-    return (
-      <SectionBlock>
-        <div className="flex justify-center items-center p-2">
-          <LoadingSpinner />
-        </div>
-      </SectionBlock>
-    );
-  }
+  // if (getCampaignStatus === HTTP_STATUS.PENDING) {
+  //   return (
+  //     <SectionBlock>
+  //       <div className="flex justify-center items-center p-2">
+  //         <LoadingSpinner />
+  //       </div>
+  //     </SectionBlock>
+  //   );
+  // }
 
   return (
     <SectionBlock>

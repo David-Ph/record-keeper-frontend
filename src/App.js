@@ -3,7 +3,7 @@ import React from "react";
 import Router from "./router/Router";
 import { useDispatch } from "react-redux";
 
-import { dropdownActions } from "./store/profiledropdown-slice";
+import { dropdownActions } from "./store/profile/profiledropdown-slice";
 
 function App() {
   const dispatch = useDispatch();
