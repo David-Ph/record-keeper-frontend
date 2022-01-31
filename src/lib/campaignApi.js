@@ -76,7 +76,10 @@ export async function deleteCampaign(campaignId, token) {
       },
     };
 
-    const response = await axios.put(`${API}/campaign/${campaignId}`, config);
+    const response = await axios.delete(
+      `${API}/campaign/${campaignId}`,
+      config
+    );
 
     return response;
   } catch (error) {

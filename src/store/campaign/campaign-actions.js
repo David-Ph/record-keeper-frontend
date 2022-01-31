@@ -1,6 +1,6 @@
 import {
   addCampaign,
-  // deleteCampaign,
+  deleteCampaign,
   getCampaigns,
   getOneCampaign,
   // editCampaign,
@@ -72,6 +72,32 @@ export const addCampaignAction = (campaignData, token) => {
 
       if (campaign.status === 201) {
         dispatch(campaignActions.switchCampaign(campaign.data.data));
+        dispatch(
+          httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
+        );
+      }
+    } catch (error) {
+      dispatch(
+        httpUIActions.campaignPostStatus({
+          status: HTTP_STATUS.COMPLETED,
+          error: error.message || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+
+export const deleteCampaignAction = (campaignId, token) => {
+  return async (dispatch) => {
+    try {
+      dispatch(
+        httpUIActions.campaignPostStatus({ status: HTTP_STATUS.PENDING })
+      );
+
+      const campaign = await deleteCampaign(campaignId, token);
+
+      if (campaign.status === 200) {
+        dispatch(campaignActions.switchCampaign(initialCampaignState));
         dispatch(
           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
         );

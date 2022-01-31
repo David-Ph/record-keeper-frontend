@@ -27,12 +27,12 @@ function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
   const history = useHistory();
   const dispatch = useDispatch();
+  const httpUI = useSelector((state) => state.httpUI);
   const campaignsData = useSelector((state) => state.campaign);
   const titleStates = useInput(titleValidator);
   const DMStates = useInput(dungeonMasterValidator);
   const descriptionStates = useInput(descriptionValidator);
   const [statusState, setStatusState] = useState();
-  const httpUI = useSelector((state) => state.httpUI);
 
   const formIsValid = titleStates.validity.isValid;
 
