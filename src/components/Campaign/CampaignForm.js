@@ -144,7 +144,7 @@ function ProfileForm(props) {
             <ErrorMessage message={httpUI.campaignError} />
           )}
 
-          {httpUI.campaignStatus === HTTP_STATUS.PENDING ? (
+          {httpUI.campaignPostStatus === HTTP_STATUS.PENDING ? (
             <LoadingSpinner />
           ) : (
             <div className="buttons">

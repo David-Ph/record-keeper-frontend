@@ -67,9 +67,8 @@ export const addCampaignAction = (campaignData, token) => {
       dispatch(
         httpUIActions.campaignPostStatus({ status: HTTP_STATUS.PENDING })
       );
-      console.log(campaignData);
+
       const campaign = await addCampaign(campaignData, token);
-      console.log(campaign);
 
       if (campaign.status === 201) {
         dispatch(campaignActions.switchCampaign(campaign.data.data));
