@@ -19,6 +19,7 @@ const Option = (props, ref) => {
         {...props.input}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        value={props.value}
         defaultValue={`Select ${usedBy}`}
         className={`bg-yellow-100 rounded-md border w-full px-2 py-1 box-border focus:outline-teal-600 transition-all ${
           inputClasses && `${inputClasses}`

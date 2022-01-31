@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Routes } from "../../config/Routes";
@@ -26,19 +26,25 @@ import Option from "../UI/Input/Option";
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
   const history = useHistory();
+  const campaignsData = useSelector((state) => state.campaign);
   const titleStates = useInput(titleValidator);
   const DMStates = useInput(dungeonMasterValidator);
   const descriptionStates = useInput(descriptionValidator);
-
+  const [statusState, setStatusState] = useState();
   const { sendRequest, error, status } = useHttp(editProfile);
 
   const formIsValid = titleStates.validity.isValid;
 
-  // useEffect(() => {
-  //   if (currentUsername) {
-  //     usernameStates.setValueHandler(currentUsername);
-  //   }
-  // }, [currentUsername]);
+  useEffect(() => {
+    if (props.mode === "edit") {
+      titleStates.setValueHandler(campaignsData.activeCampaign.title);
+      DMStates.setValueHandler(campaignsData.activeCampaign.dungeonMaster);
+      descriptionStates.setValueHandler(
+        campaignsData.activeCampaign.description
+      );
+      setStatusState(campaignsData.activeCampaign.status);
+    }
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -67,7 +73,7 @@ function ProfileForm(props) {
   });
 
   const onSelectStatus = (event) => {
-    const status = event.target.value;
+    setStatusState(event.target.value);
   };
 
   return (
@@ -98,6 +104,7 @@ function ProfileForm(props) {
             onChange={onSelectStatus}
             options={availableStatus}
             usedBy="Status"
+            value={statusState}
           />
 
           <Input

@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = React.forwardRef((props, ref) => {
   return (
-    <div className="flex justify-between m-2 flex-col md:flex-row">
+    <div className="flex justify-between m-2 flex-col md:flex-row md:items-center">
       <label htmlFor={props.input.id} className="md:w-1/3">
         {props.label}
       </label>
