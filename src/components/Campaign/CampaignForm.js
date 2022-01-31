@@ -1,12 +1,19 @@
 import React, { useContext, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Routes } from "../../config/Routes";
 
 import AuthContext from "../../context/auth-context";
 import useInput from "../../hooks/useInput";
 import useHttp from "../../hooks/useHttp";
+import { HTTP_STATUS } from "../../hooks/useHttp";
 import { editProfile } from "../../lib/api";
-import { usernameValidator } from "../../helper/validators/AuthValidator";
+import {
+  titleValidator,
+  descriptionValidator,
+  dungeonMasterValidator,
+} from "../../helper/validators/CampaignValidator";
+import { CampaignStatus } from "../../config/Options";
 
 import Modal from "../Modal/Modal";
 import Title from "../UI/Typography/Title";
@@ -14,31 +21,34 @@ import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+import Option from "../UI/Input/Option";
 
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
   const history = useHistory();
-  const usernameStates = useInput(usernameValidator);
+  const titleStates = useInput(titleValidator);
+  const DMStates = useInput(dungeonMasterValidator);
+  const descriptionStates = useInput(descriptionValidator);
+
   const { sendRequest, error, status } = useHttp(editProfile);
 
-  const currentUsername = AuthCtx.user?.username;
-  const formIsValid = usernameStates.validity.isValid;
+  const formIsValid = titleStates.validity.isValid;
 
-  useEffect(() => {
-    if (currentUsername) {
-      usernameStates.setValueHandler(currentUsername);
-    }
-  }, [currentUsername]);
+  // useEffect(() => {
+  //   if (currentUsername) {
+  //     usernameStates.setValueHandler(currentUsername);
+  //   }
+  // }, [currentUsername]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     if (formIsValid) {
-      const userData = {
-        username: usernameStates.value || AuthCtx.user.username,
+      const campaignData = {
+        title: titleStates.value,
       };
 
-      const response = await sendRequest(userData, AuthCtx.token);
+      const response = await sendRequest(campaignData, AuthCtx.token);
 
       if (response?.status === 201) {
         AuthCtx.login(AuthCtx.token, response.data.newData);
@@ -49,6 +59,17 @@ function ProfileForm(props) {
 
   const title = props.mode === "edit" ? "Edit" : "Add";
 
+  const availableStatus = CampaignStatus.map((status) => {
+    return {
+      label: status,
+      id: status,
+    };
+  });
+
+  const onSelectStatus = (event) => {
+    const status = event.target.value;
+  };
+
   return (
     <Modal onClick={props.onHide}>
       <Title>{title} Campaign</Title>
@@ -56,70 +77,61 @@ function ProfileForm(props) {
         <form onSubmit={submitHandler}>
           <Input
             label="Title"
-            isValid={usernameStates.validity.isValid}
-            onChange={usernameStates.valueChangeHandler}
-            onBlur={usernameStates.valueInputBlurHandler}
+            isValid={titleStates.validity.isValid}
+            onChange={titleStates.valueChangeHandler}
+            onBlur={titleStates.valueInputBlurHandler}
             input={{
               id: "title",
               type: "text",
               minLength: "3",
               maxLength: "25",
-              value: usernameStates.value,
+              value: titleStates.value,
             }}
           />
-          {usernameStates.hasError && (
-            <ErrorMessage message={usernameStates.validity.message} />
+          {titleStates.hasError && (
+            <ErrorMessage message={titleStates.validity.message} />
           )}
 
-          <Input
+          <Option
             label="Status"
-            isValid={usernameStates.validity.isValid}
-            onChange={usernameStates.valueChangeHandler}
-            onBlur={usernameStates.valueInputBlurHandler}
-            input={{
-              id: "status",
-              type: "text",
-              minLength: "3",
-              maxLength: "25",
-              value: usernameStates.value,
-            }}
+            input={{ id: "select-status" }}
+            onChange={onSelectStatus}
+            options={availableStatus}
+            usedBy="Status"
           />
-          {usernameStates.hasError && (
-            <ErrorMessage message={usernameStates.validity.message} />
-          )}
 
           <Input
             label="Dungeon Master"
-            isValid={usernameStates.validity.isValid}
-            onChange={usernameStates.valueChangeHandler}
-            onBlur={usernameStates.valueInputBlurHandler}
+            isValid={DMStates.validity.isValid}
+            onChange={DMStates.valueChangeHandler}
+            onBlur={DMStates.valueInputBlurHandler}
             input={{
               id: "dungeonMaster",
               type: "text",
               minLength: "3",
               maxLength: "25",
-              value: usernameStates.value,
+              value: DMStates.value,
             }}
           />
-          {usernameStates.hasError && (
-            <ErrorMessage message={usernameStates.validity.message} />
+          {DMStates.hasError && (
+            <ErrorMessage message={DMStates.validity.message} />
           )}
 
           <Input
             label="Description"
-            isValid={usernameStates.validity.isValid}
-            onChange={usernameStates.valueChangeHandler}
-            onBlur={usernameStates.valueInputBlurHandler}
+            isValid={descriptionStates.validity.isValid}
+            onChange={descriptionStates.valueChangeHandler}
+            onBlur={descriptionStates.valueInputBlurHandler}
             input={{
               id: "description",
               type: "text",
               minLength: "3",
               maxLength: "25",
-              value: usernameStates.value,
+              value: descriptionStates.value,
             }}
           />
-          {usernameStates.hasError && (
-            <ErrorMessage message={usernameStates.validity.message} />
+          {descriptionStates.hasError && (
+            <ErrorMessage message={descriptionStates.validity.message} />
           )}
 
           {error && <ErrorMessage message={error} />}
@@ -129,7 +141,11 @@ function ProfileForm(props) {
           ) : (
             <div className="buttons">
               <Button type="submit">Submit</Button>
-              <Button onClick={props.onHide} type="button" color="bg-primary hover:text-white">
+              <Button
+                onClick={props.onHide}
+                type="button"
+                color="bg-primary hover:text-white"
+              >
                 Cancel
               </Button>
             </div>

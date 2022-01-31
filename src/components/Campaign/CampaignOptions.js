@@ -32,6 +32,7 @@ function CampaignOptions(props) {
       options={availableCampaigns}
       inputClasses="font-handwritten text-2xl text-center"
       labelClasses="text-xs"
+      usedBy="Campaign"
     />
   );
 }
