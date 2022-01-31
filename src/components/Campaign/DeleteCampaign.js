@@ -47,8 +47,6 @@ function ProfileForm(props) {
     }
   };
 
-  const title = props.mode === "edit" ? "Edit" : "Add";
-
   return (
     <Modal onClick={props.onHide}>
       <section>
@@ -59,7 +57,11 @@ function ProfileForm(props) {
           ) : (
             <div className="buttons">
               <Button type="submit">Submit</Button>
-              <Button onClick={props.onHide} type="button" color="bg-primary hover:text-white">
+              <Button
+                onClick={props.onHide}
+                type="button"
+                color="bg-primary hover:text-white"
+              >
                 Cancel
               </Button>
             </div>
