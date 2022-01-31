@@ -18,10 +18,11 @@ import { CampaignStatus } from "../../config/Options";
 import Modal from "../Modal/Modal";
 import Title from "../UI/Typography/Title";
 import Input from "../UI/Input/Input";
+import TextArea from "../UI/Input/TextArea";
+import Option from "../UI/Input/Option";
 import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
-import Option from "../UI/Input/Option";
 
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
@@ -89,8 +90,8 @@ function ProfileForm(props) {
             input={{
               id: "title",
               type: "text",
-              minLength: "3",
-              maxLength: "25",
+              minLength: "1",
+              maxLength: "50",
               value: titleStates.value,
             }}
           />
@@ -115,8 +116,8 @@ function ProfileForm(props) {
             input={{
               id: "dungeonMaster",
               type: "text",
-              minLength: "3",
-              maxLength: "25",
+              minLength: "1",
+              maxLength: "50",
               value: DMStates.value,
             }}
           />
@@ -124,7 +125,7 @@ function ProfileForm(props) {
             <ErrorMessage message={DMStates.validity.message} />
           )}
 
-          <Input
+          <TextArea
             label="Description"
             isValid={descriptionStates.validity.isValid}
             onChange={descriptionStates.valueChangeHandler}
@@ -132,8 +133,8 @@ function ProfileForm(props) {
             input={{
               id: "description",
               type: "text",
-              minLength: "3",
-              maxLength: "25",
+              minLength: "1",
+              maxLength: "250",
               value: descriptionStates.value,
             }}
           />

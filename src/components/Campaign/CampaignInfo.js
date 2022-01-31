@@ -99,11 +99,7 @@ function CampaignInfo() {
           </Textbox>
           <Textbox>
             <p className="text-justify">
-              {/* {campaignsData.activeCampaign.description} */}
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Similique ipsam voluptas doloribus, eum iusto vitae asperiores ab
-              eius libero itaque hic odit blanditiis voluptates ex corrupti,
-              amet laboriosam cupiditate quasi harum voluptatibus suscipit.
+              {campaignsData.activeCampaign.description}
             </p>
           </Textbox>
         </div>
