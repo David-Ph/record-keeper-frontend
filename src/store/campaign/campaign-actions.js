@@ -1,5 +1,5 @@
 import {
-  // addCampaign,
+  addCampaign,
   // deleteCampaign,
   getCampaigns,
   getOneCampaign,
@@ -12,7 +12,7 @@ import { campaignActions, initialCampaignState } from "./campaign-slice";
 import { httpUIActions } from "../http-ui/http-ui-slice";
 
 // functions to call API and call the reducers that change UI
-export const getCampaignsData = (params, token) => {
+export const getCampaignsAction = (params, token) => {
   return async (dispatch) => {
     try {
       dispatch(httpUIActions.campaignHandler({ status: HTTP_STATUS.PENDING }));
@@ -37,7 +37,7 @@ export const getCampaignsData = (params, token) => {
   };
 };
 
-export const getOneCampaignData = (campaignId, token) => {
+export const getOneCampaignAction = (campaignId, token) => {
   return async (dispatch) => {
     try {
       dispatch(httpUIActions.campaignHandler({ status: HTTP_STATUS.PENDING }));
@@ -53,6 +53,33 @@ export const getOneCampaignData = (campaignId, token) => {
     } catch (error) {
       dispatch(
         httpUIActions.campaignHandler({
+          status: HTTP_STATUS.COMPLETED,
+          error: error.message || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+
+export const addCampaignAction = (campaignData, token) => {
+  return async (dispatch) => {
+    try {
+      dispatch(
+        httpUIActions.campaignPostStatus({ status: HTTP_STATUS.PENDING })
+      );
+      console.log(campaignData);
+      const campaign = await addCampaign(campaignData, token);
+      console.log(campaign);
+
+      if (campaign.status === 201) {
+        dispatch(campaignActions.switchCampaign(campaign.data.data));
+        dispatch(
+          httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
+        );
+      }
+    } catch (error) {
+      dispatch(
+        httpUIActions.campaignPostStatus({
           status: HTTP_STATUS.COMPLETED,
           error: error.message || "Something went wrong",
         })

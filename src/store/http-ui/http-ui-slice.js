@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialHTTPUIState = {
   campaignStatus: null,
   campaignError: false,
+  campaignPostStatus: null,
 };
 
 const httpUISlice = createSlice({
@@ -11,6 +12,10 @@ const httpUISlice = createSlice({
   reducers: {
     campaignHandler(state, action) {
       state.campaignStatus = action.payload.status;
+      state.campaignError = action.payload.error;
+    },
+    campaignPostStatus(state, action) {
+      state.campaignPostStatus = action.payload.status;
       state.campaignError = action.payload.error;
     },
   },

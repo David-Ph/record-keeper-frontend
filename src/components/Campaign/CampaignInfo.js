@@ -6,7 +6,7 @@ import CampaignForm from "./CampaignForm";
 import DeleteCampaign from "./DeleteCampaign";
 
 import AuthContext from "../../context/auth-context";
-import { getCampaignsData } from "../../store/campaign/campaign-actions";
+import { getCampaignsAction } from "../../store/campaign/campaign-actions";
 import { HTTP_STATUS } from "../../hooks/useHttp";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
@@ -24,7 +24,7 @@ function CampaignInfo() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
-    dispatch(getCampaignsData("", token));
+    dispatch(getCampaignsAction("", token));
   }, [token, dispatch]);
 
   if (httpUI.campaignStatus === HTTP_STATUS.PENDING) {

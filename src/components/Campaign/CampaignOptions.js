@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AuthContext from "../../context/auth-context";
-import { getOneCampaignData } from "../../store/campaign/campaign-actions";
+import { getOneCampaignAction } from "../../store/campaign/campaign-actions";
 
 import Option from "../UI/Input/Option";
 
@@ -22,7 +22,7 @@ function CampaignOptions(props) {
 
   const onSelectCampaign = (event) => {
     const id = event.target.value;
-    dispatch(getOneCampaignData(id, token));
+    dispatch(getOneCampaignAction(id, token));
   };
 
   return (

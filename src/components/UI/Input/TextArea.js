@@ -11,6 +11,7 @@ const Input = React.forwardRef((props, ref) => {
         ref={ref}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        rows="4"
         className={`bg-yellow-100 rounded-md border w-full md:w-2/3 px-2 py-1 box-border focus:outline-teal-600 focus:scale-105 transition-all`}
       >
         {props.input.value}

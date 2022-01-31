@@ -5,14 +5,13 @@ import { Routes } from "../../config/Routes";
 
 import AuthContext from "../../context/auth-context";
 import useInput from "../../hooks/useInput";
-import useHttp from "../../hooks/useHttp";
 import { HTTP_STATUS } from "../../hooks/useHttp";
-import { editProfile } from "../../lib/api";
 import {
   titleValidator,
   descriptionValidator,
   dungeonMasterValidator,
 } from "../../helper/validators/CampaignValidator";
+import { addCampaignAction } from "../../store/campaign/campaign-actions";
 import { CampaignStatus } from "../../config/Options";
 
 import Modal from "../Modal/Modal";
@@ -27,12 +26,13 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
   const history = useHistory();
+  const dispatch = useDispatch();
   const campaignsData = useSelector((state) => state.campaign);
   const titleStates = useInput(titleValidator);
   const DMStates = useInput(dungeonMasterValidator);
   const descriptionStates = useInput(descriptionValidator);
   const [statusState, setStatusState] = useState();
-  const { sendRequest, error, status } = useHttp(editProfile);
+  const httpUI = useSelector((state) => state.httpUI);
 
   const formIsValid = titleStates.validity.isValid;
 
@@ -53,14 +53,12 @@ function ProfileForm(props) {
     if (formIsValid) {
       const campaignData = {
         title: titleStates.value,
+        dungeonMaster: DMStates.value,
+        description: descriptionStates.value,
+        status: statusState,
       };
 
-      const response = await sendRequest(campaignData, AuthCtx.token);
-
-      if (response?.status === 201) {
-        AuthCtx.login(AuthCtx.token, response.data.newData);
-        history.replace(Routes.DASHBOARD_MAIN);
-      }
+      dispatch(addCampaignAction(campaignData, AuthCtx.token));
     }
   };
 
@@ -142,9 +140,11 @@ function ProfileForm(props) {
             <ErrorMessage message={descriptionStates.validity.message} />
           )}
 
-          {error && <ErrorMessage message={error} />}
+          {httpUI.campaignError && (
+            <ErrorMessage message={httpUI.campaignError} />
+          )}
 
-          {status === "pending" ? (
+          {httpUI.campaignStatus === HTTP_STATUS.PENDING ? (
             <LoadingSpinner />
           ) : (
             <div className="buttons">
