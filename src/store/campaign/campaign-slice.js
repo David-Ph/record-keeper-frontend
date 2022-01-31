@@ -25,7 +25,15 @@ const campaignSlice = createSlice({
     switchCampaign(state, action) {
       state.activeCampaign = action.payload;
     },
-    addCampaign() {},
+    addCampaign(state, action) {
+      state.campaignsList.unshift(action.payload);
+    },
+    deleteCampaign(state, action) {
+      const previousList = state.campaignsList;
+      state.campaignsList = previousList.filter((campaign) => {
+        return campaign._id !== action.payload;
+      });
+    },
   },
 });
 

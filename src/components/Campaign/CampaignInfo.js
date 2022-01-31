@@ -8,6 +8,7 @@ import DeleteCampaign from "./DeleteCampaign";
 import AuthContext from "../../context/auth-context";
 import { getCampaignsAction } from "../../store/campaign/campaign-actions";
 import { HTTP_STATUS } from "../../hooks/useHttp";
+import { initialCampaignState } from "../../store/campaign/campaign-slice";
 
 import SectionBlock from "../UI/SectionBlock/SectionBlock";
 import Textbox from "../UI/TextBox/Textbox";
@@ -87,19 +88,29 @@ function CampaignInfo() {
         <div className="md:ml-2 md:w-2/3">
           <Textbox>
             <p className="font-semibold">Title:</p>
-            <p>{campaignsData.activeCampaign.title}</p>
+            <p>
+              {campaignsData.activeCampaign.title ||
+                initialCampaignState.activeCampaign.title}
+            </p>
           </Textbox>
           <Textbox>
             <p className="font-semibold">Dungeon Master:</p>
-            <p>{campaignsData.activeCampaign.dungeonMaster}</p>
+            <p>
+              {campaignsData.activeCampaign.dungeonMaster ||
+                initialCampaignState.activeCampaign.dungeonMaster}
+            </p>
           </Textbox>
           <Textbox>
             <p className="font-semibold">Status:</p>
-            <p>{campaignsData.activeCampaign.status}</p>
+            <p>
+              {campaignsData.activeCampaign.status ||
+                initialCampaignState.activeCampaign.status}
+            </p>
           </Textbox>
           <Textbox>
             <p className="text-justify">
-              {campaignsData.activeCampaign.description}
+              {campaignsData.activeCampaign.description ||
+                initialCampaignState.activeCampaign.description}
             </p>
           </Textbox>
         </div>

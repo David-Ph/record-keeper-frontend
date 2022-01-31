@@ -61,7 +61,7 @@ export const getOneCampaignAction = (campaignId, token) => {
   };
 };
 
-export const addCampaignAction = (campaignData, token) => {
+export const addCampaignAction = (campaignData, token, cb = () => {}) => {
   return async (dispatch) => {
     try {
       dispatch(
@@ -72,9 +72,11 @@ export const addCampaignAction = (campaignData, token) => {
 
       if (campaign.status === 201) {
         dispatch(campaignActions.switchCampaign(campaign.data.data));
+        dispatch(campaignActions.addCampaign(campaign.data.data));
         dispatch(
           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
         );
+        cb();
       }
     } catch (error) {
       dispatch(
@@ -87,7 +89,7 @@ export const addCampaignAction = (campaignData, token) => {
   };
 };
 
-export const deleteCampaignAction = (campaignId, token) => {
+export const deleteCampaignAction = (campaignId, token, cb = () => {}) => {
   return async (dispatch) => {
     try {
       dispatch(
@@ -98,9 +100,11 @@ export const deleteCampaignAction = (campaignId, token) => {
 
       if (campaign.status === 200) {
         dispatch(campaignActions.switchCampaign(initialCampaignState));
+        dispatch(campaignActions.deleteCampaign(campaignId));
         dispatch(
           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
         );
+        cb();
       }
     } catch (error) {
       dispatch(

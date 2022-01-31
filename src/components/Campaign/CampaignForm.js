@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Routes } from "../../config/Routes";
 
 import AuthContext from "../../context/auth-context";
 import useInput from "../../hooks/useInput";
@@ -25,7 +23,6 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function ProfileForm(props) {
   const AuthCtx = useContext(AuthContext);
-  const history = useHistory();
   const dispatch = useDispatch();
   const httpUI = useSelector((state) => state.httpUI);
   const campaignsData = useSelector((state) => state.campaign);
@@ -58,7 +55,7 @@ function ProfileForm(props) {
         status: statusState,
       };
 
-      dispatch(addCampaignAction(campaignData, AuthCtx.token));
+      dispatch(addCampaignAction(campaignData, AuthCtx.token, props.onHide));
     }
   };
 
