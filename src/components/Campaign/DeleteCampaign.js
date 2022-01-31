@@ -59,7 +59,7 @@ function ProfileForm(props) {
           ) : (
             <div className="buttons">
               <Button type="submit">Submit</Button>
-              <Button type="button" color="bg-primary hover:text-white">
+              <Button onClick={props.onHide} type="button" color="bg-primary hover:text-white">
                 Cancel
               </Button>
             </div>

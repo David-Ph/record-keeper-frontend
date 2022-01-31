@@ -25,8 +25,6 @@ function ProfileForm(props) {
   const { sendRequest, error, status } = useHttp(editProfile);
 
   const currentUsername = AuthCtx.user?.username;
-  const formIsValid =
-    usernameStates.validity.isValid && avatarStates.validity.isValid;
 
   useEffect(() => {
     if (currentUsername) {
@@ -37,18 +35,16 @@ function ProfileForm(props) {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (formIsValid) {
-      const userData = {
-        username: usernameStates.value || AuthCtx.user.username,
-        avatar: avatarStates.value || AuthCtx.user.avatar,
-      };
+    const userData = {
+      username: usernameStates.value || AuthCtx.user.username,
+      avatar: avatarStates.value || AuthCtx.user.avatar,
+    };
 
-      const response = await sendRequest(userData, AuthCtx.token);
+    const response = await sendRequest(userData, AuthCtx.token);
 
-      if (response?.status === 201) {
-        AuthCtx.login(AuthCtx.token, response.data.newData);
-        history.replace(Routes.DASHBOARD_MAIN);
-      }
+    if (response?.status === 201) {
+      AuthCtx.login(AuthCtx.token, response.data.newData);
+      history.replace(Routes.DASHBOARD_MAIN);
     }
   };
 
@@ -97,7 +93,7 @@ function ProfileForm(props) {
           ) : (
             <div className="buttons">
               <Button type="submit">Submit</Button>
-              <Button type="button" color="bg-primary hover:text-white">
+              <Button onClick={props.onHideProfile} type="button" color="bg-primary hover:text-white">
                 Cancel
               </Button>
             </div>
