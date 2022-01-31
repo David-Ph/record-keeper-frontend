@@ -33,6 +33,17 @@ const campaignSlice = createSlice({
       state.campaignsList = previousList.filter((campaign) => {
         return campaign._id !== action.payload;
       });
+      state.activeCampaign = initialCampaignState.activeCampaign;
+    },
+    editCampaign(state, action) {
+      const previousList = state.campaignsList;
+      state.campaignsList = previousList.map((campaign) => {
+        if (campaign._id === action.payload._id) {
+          return action.payload;
+        }
+        return campaign;
+      });
+      state.activeCampaign = action.payload;
     },
   },
 });

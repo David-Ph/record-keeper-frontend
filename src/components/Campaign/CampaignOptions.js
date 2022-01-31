@@ -6,13 +6,14 @@ import { getOneCampaignAction } from "../../store/campaign/campaign-actions";
 
 import Option from "../UI/Input/Option";
 
-function CampaignOptions(props) {
+function CampaignOptions() {
   const { token } = useContext(AuthContext);
   const dispatch = useDispatch();
+  const campaignsData = useSelector((state) => state.campaign);
   let availableCampaigns = [];
 
-  if (Array.isArray(props.campaigns)) {
-    availableCampaigns = props.campaigns.map((campaign) => {
+  if (Array.isArray(campaignsData.campaignsList)) {
+    availableCampaigns = campaignsData.campaignsList.map((campaign) => {
       return {
         id: campaign._id,
         label: campaign.title,

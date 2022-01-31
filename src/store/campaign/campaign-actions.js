@@ -3,7 +3,7 @@ import {
   deleteCampaign,
   getCampaigns,
   getOneCampaign,
-  // editCampaign,
+  editCampaign,
 } from "../../lib/campaignApi";
 
 import { HTTP_STATUS } from "../../hooks/useHttp";
@@ -73,6 +73,39 @@ export const addCampaignAction = (campaignData, token, cb = () => {}) => {
       if (campaign.status === 201) {
         dispatch(campaignActions.switchCampaign(campaign.data.data));
         dispatch(campaignActions.addCampaign(campaign.data.data));
+        dispatch(
+          httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
+        );
+        cb();
+      }
+    } catch (error) {
+      dispatch(
+        httpUIActions.campaignPostStatus({
+          status: HTTP_STATUS.COMPLETED,
+          error: error.message || "Something went wrong",
+        })
+      );
+    }
+  };
+};
+
+export const editCampaignAction = (
+  campaignId,
+  campaignData,
+  token,
+  cb = () => {}
+) => {
+  return async (dispatch) => {
+    try {
+      dispatch(
+        httpUIActions.campaignPostStatus({ status: HTTP_STATUS.PENDING })
+      );
+
+      const campaign = await editCampaign(campaignId, campaignData, token);
+
+      if (campaign.status === 201) {
+        dispatch(campaignActions.switchCampaign(campaign.data.data));
+        dispatch(campaignActions.editCampaign(campaign.data.data));
         dispatch(
           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
         );

@@ -64,7 +64,7 @@ function CampaignInfo() {
         <div className="md:w-1/3 md:flex md:flex-col md:justify-center">
           <Textbox>
             <div className="md:flex md:flex-col md:justify-center w-full">
-              <CampaignOptions campaigns={campaignsData.campaignsList} />
+              <CampaignOptions />
               <Button onClick={onAddCampaignHandler}>New Campaign</Button>
               <div>
                 <Button

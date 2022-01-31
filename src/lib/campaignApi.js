@@ -52,7 +52,7 @@ export async function addCampaign(data, token) {
   }
 }
 
-export async function editCampaign(data, token) {
+export async function editCampaign(campaignId, data, token) {
   try {
     const config = {
       headers: {
@@ -60,7 +60,13 @@ export async function editCampaign(data, token) {
       },
     };
 
-    const response = await axios.put(`${API}/campaign`, data, config);
+    const response = await axios.put(
+      `${API}/campaign/${campaignId}`,
+      data,
+      config
+    );
+
+    console.log(response);
 
     return response;
   } catch (error) {

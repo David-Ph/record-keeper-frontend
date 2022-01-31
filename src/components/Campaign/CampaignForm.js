@@ -9,7 +9,10 @@ import {
   descriptionValidator,
   dungeonMasterValidator,
 } from "../../helper/validators/CampaignValidator";
-import { addCampaignAction } from "../../store/campaign/campaign-actions";
+import {
+  addCampaignAction,
+  editCampaignAction,
+} from "../../store/campaign/campaign-actions";
 import { CampaignStatus } from "../../config/Options";
 
 import Modal from "../Modal/Modal";
@@ -55,7 +58,18 @@ function ProfileForm(props) {
         status: statusState,
       };
 
-      dispatch(addCampaignAction(campaignData, AuthCtx.token, props.onHide));
+      if (props.mode === "edit") {
+        dispatch(
+          editCampaignAction(
+            campaignsData.activeCampaign._id,
+            campaignData,
+            AuthCtx.token,
+            props.onHide
+          )
+        );
+      } else {
+        dispatch(addCampaignAction(campaignData, AuthCtx.token, props.onHide));
+      }
     }
   };
 
