@@ -33,37 +33,6 @@ function CampaignBlock() {
       <div className="md:flex text-sm">
         <CampaignSelect />
         {isLoading && loadingSpinner}
-        {/* {!isLoading && (
-          <div className="md:ml-2 md:w-2/3">
-            <Textbox>
-              <p className="font-semibold">Title:</p>
-              <p>
-                {campaignsData.activeCampaign.title ||
-                  initialCampaignState.activeCampaign.title}
-              </p>
-            </Textbox>
-            <Textbox>
-              <p className="font-semibold">Dungeon Master:</p>
-              <p>
-                {campaignsData.activeCampaign.dungeonMaster ||
-                  initialCampaignState.activeCampaign.dungeonMaster}
-              </p>
-            </Textbox>
-            <Textbox>
-              <p className="font-semibold">Status:</p>
-              <p>
-                {campaignsData.activeCampaign.status ||
-                  initialCampaignState.activeCampaign.status}
-              </p>
-            </Textbox>
-            <Textbox>
-              <p className="text-justify">
-                {campaignsData.activeCampaign.description ||
-                  initialCampaignState.activeCampaign.description}
-              </p>
-            </Textbox>
-          </div>
-        )} */}
         {!isLoading && (
           <CampaignInfo
             title={campaignsData.activeCampaign.title}
