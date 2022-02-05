@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import AuthContext from "../../context/auth-context";
 import { getOneCampaignAction } from "../../store/campaign/campaign-actions";
@@ -9,6 +10,7 @@ import Option from "../UI/Input/Option";
 function CampaignOptions() {
   const { token } = useContext(AuthContext);
   const dispatch = useDispatch();
+  const history = useHistory();
   const campaignsData = useSelector((state) => state.campaign);
   let availableCampaigns = [];
 
@@ -24,6 +26,7 @@ function CampaignOptions() {
   const onSelectCampaign = (event) => {
     const id = event.target.value;
     dispatch(getOneCampaignAction(id, token));
+    history.push(`/dashboard/${id}`);
   };
 
   return (

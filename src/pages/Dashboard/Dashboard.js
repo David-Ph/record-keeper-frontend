@@ -1,12 +1,12 @@
 import Layout from "../../components/Layout/Layout";
 
-import CampaignInfo from "../../components/Campaign/CampaignInfo";
+import CampaignBlock from "../../components/Campaign/CampaignBlock";
 
 function Dashboard() {
 
   return (
     <Layout>
-      <CampaignInfo />
+      <CampaignBlock />
     </Layout>
   );
 }
