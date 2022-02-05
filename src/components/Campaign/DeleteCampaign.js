@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import AuthContext from "../../context/auth-context";
 import { HTTP_STATUS } from "../../hooks/useHttp";
@@ -12,6 +13,7 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 function DeleteCampaign(props) {
   const AuthCtx = useContext(AuthContext);
   const dispatch = useDispatch();
+  const history = useHistory();
   const httpUI = useSelector((state) => state.httpUI);
   const campaignsData = useSelector((state) => state.campaign);
 
@@ -25,6 +27,7 @@ function DeleteCampaign(props) {
         props.onHide
       )
     );
+    history.push("/dashboard/");
   };
 
   return (
