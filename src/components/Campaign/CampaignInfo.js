@@ -22,49 +22,49 @@ function CampaignInfo(props) {
     dispatch(getCampaignsAction("", token));
   }, [token, dispatch]);
 
-  if (httpUI.campaignStatus === HTTP_STATUS.PENDING) {
-    return (
-      <SectionBlock>
-        <div className="flex justify-center items-center p-2">
-          <LoadingSpinner />
-        </div>
-      </SectionBlock>
-    );
-  }
+  const isLoading = httpUI.campaignStatus === HTTP_STATUS.PENDING;
+  const loadingSpinner = (
+    <div className="flex md:ml-2 md:w-2/3 justify-center items-center p-2">
+      <LoadingSpinner />
+    </div>
+  );
 
   return (
     <SectionBlock>
       <div className="md:flex text-sm">
         <CampaignSelect />
-        <div className="md:ml-2 md:w-2/3">
-          <Textbox>
-            <p className="font-semibold">Title:</p>
-            <p>
-              {campaignsData.activeCampaign.title ||
-                initialCampaignState.activeCampaign.title}
-            </p>
-          </Textbox>
-          <Textbox>
-            <p className="font-semibold">Dungeon Master:</p>
-            <p>
-              {campaignsData.activeCampaign.dungeonMaster ||
-                initialCampaignState.activeCampaign.dungeonMaster}
-            </p>
-          </Textbox>
-          <Textbox>
-            <p className="font-semibold">Status:</p>
-            <p>
-              {campaignsData.activeCampaign.status ||
-                initialCampaignState.activeCampaign.status}
-            </p>
-          </Textbox>
-          <Textbox>
-            <p className="text-justify">
-              {campaignsData.activeCampaign.description ||
-                initialCampaignState.activeCampaign.description}
-            </p>
-          </Textbox>
-        </div>
+        {isLoading && loadingSpinner}
+        {!isLoading && (
+          <div className="md:ml-2 md:w-2/3">
+            <Textbox>
+              <p className="font-semibold">Title:</p>
+              <p>
+                {campaignsData.activeCampaign.title ||
+                  initialCampaignState.activeCampaign.title}
+              </p>
+            </Textbox>
+            <Textbox>
+              <p className="font-semibold">Dungeon Master:</p>
+              <p>
+                {campaignsData.activeCampaign.dungeonMaster ||
+                  initialCampaignState.activeCampaign.dungeonMaster}
+              </p>
+            </Textbox>
+            <Textbox>
+              <p className="font-semibold">Status:</p>
+              <p>
+                {campaignsData.activeCampaign.status ||
+                  initialCampaignState.activeCampaign.status}
+              </p>
+            </Textbox>
+            <Textbox>
+              <p className="text-justify">
+                {campaignsData.activeCampaign.description ||
+                  initialCampaignState.activeCampaign.description}
+              </p>
+            </Textbox>
+          </div>
+        )}
       </div>
     </SectionBlock>
   );
