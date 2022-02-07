@@ -5,14 +5,8 @@ import SectionBlock from "../../components/UI/SectionBlock/SectionBlock";
 
 import CampaignBlock from "../../components/Campaign/CampaignBlock";
 import Switcher from "../../components/Switcher/Switcher";
-
-const Journal = () => {
-  return <h1>Hello Journal</h1>;
-};
-
-const Record = () => {
-  return <h1>Hello Record</h1>;
-};
+import JournalBlock from "../../components/Journal/JournalBlock";
+import RecordBlock from "../../components/Record/RecordBlock";
 
 function Dashboard() {
   const match = useRouteMatch();
@@ -25,10 +19,10 @@ function Dashboard() {
       </Route>
       <SectionBlock>
         <Route path={`${match.path}/:campaignId/journals`}>
-          <Journal />
+          <JournalBlock />
         </Route>
         <Route path={`${match.path}/:campaignId/records`}>
-          <Record />
+          <RecordBlock />
         </Route>
       </SectionBlock>
     </Layout>
