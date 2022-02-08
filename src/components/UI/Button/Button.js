@@ -6,7 +6,7 @@ function Button(props) {
 
   return (
     <button
-      className={`rounded-md border border-black mt-2 px-2 py-1 box-border hover:bg-tertiary ${buttonWidth} ${buttonColor}`}
+      className={`rounded-md border border-black my-1 px-2 py-1 box-border hover:bg-tertiary ${buttonWidth} ${buttonColor}`}
       onClick={props.onClick}
       type={props.type || "button"}
     >

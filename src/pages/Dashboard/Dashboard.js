@@ -8,6 +8,8 @@ import Switcher from "../../components/Switcher/Switcher";
 import JournalBlock from "../../components/Journal/JournalBlock";
 import RecordBlock from "../../components/Record/RecordBlock";
 
+import Title from "../../components/UI/Typography/Title";
+
 function Dashboard() {
   const match = useRouteMatch();
 
@@ -18,6 +20,12 @@ function Dashboard() {
         <Switcher />
       </Route>
       <SectionBlock>
+        <Route path={`${match.path}`} exact>
+          <Title>Select a campaign</Title>
+        </Route>
+        <Route path={`${match.path}/:campaignId`} exact>
+          <Title>Select journal or record</Title>
+        </Route>
         <Route path={`${match.path}/:campaignId/journals`}>
           <JournalBlock />
         </Route>

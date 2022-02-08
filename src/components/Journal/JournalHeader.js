@@ -8,8 +8,9 @@ function JournalHeader(props) {
   const onEnterHandler = (e) => {
     if (e.key !== "Enter") return;
   };
+
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between border-b border-tertiary py-2">
       <Title>Journal Entries</Title>
       <div className="flex justify-between items-center w-full md:w-2/3">
         <Button>Add New Journal</Button>
