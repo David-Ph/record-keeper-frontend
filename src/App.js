@@ -16,7 +16,7 @@ function App() {
   return (
     <div
       onClick={onClickHandler}
-      className="bg-logo-bg min-h-screen h-full bg-cover bg-center bg-no-repeat font-sans"
+      className="bg-logo-bg min-h-screen h-full bg-cover bg-fixed bg-center bg-no-repeat font-sans"
     >
       <Router />
     </div>
