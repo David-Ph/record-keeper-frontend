@@ -30,7 +30,7 @@ function ProfileForm(props) {
     if (currentUsername) {
       usernameStates.setValueHandler(currentUsername);
     }
-  }, [currentUsername]);
+  }, [currentUsername, usernameStates]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

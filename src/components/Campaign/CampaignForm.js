@@ -24,7 +24,7 @@ import Button from "../UI/Button/Button";
 import ErrorMessage from "../UI/Notifications/ErrorMessage";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
-function ProfileForm(props) {
+function CampaignForm(props) {
   const AuthCtx = useContext(AuthContext);
   const dispatch = useDispatch();
   const httpUI = useSelector((state) => state.httpUI);
@@ -36,16 +36,17 @@ function ProfileForm(props) {
 
   const formIsValid = titleStates.validity.isValid;
 
+  const { activeCampaign } = campaignsData;
+  const { mode } = props;
+
   useEffect(() => {
-    if (props.mode === "edit") {
-      titleStates.setValueHandler(campaignsData.activeCampaign.title);
-      DMStates.setValueHandler(campaignsData.activeCampaign.dungeonMaster);
-      descriptionStates.setValueHandler(
-        campaignsData.activeCampaign.description
-      );
-      setStatusState(campaignsData.activeCampaign.status);
+    if (mode === "edit") {
+      titleStates.setValueHandler(activeCampaign.title);
+      DMStates.setValueHandler(activeCampaign.dungeonMaster);
+      descriptionStates.setValueHandler(activeCampaign.description);
+      setStatusState(activeCampaign.status);
     }
-  }, []);
+  }, [activeCampaign, DMStates, descriptionStates, titleStates, mode]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -175,4 +176,4 @@ function ProfileForm(props) {
   );
 }
 
-export default ProfileForm;
+export default CampaignForm;
