@@ -60,6 +60,7 @@ export const AuthContextProvider = (props) => {
   const userIsLoggedIn = !!token; // converts falsy/truthy values into boolean
 
   const logoutHandler = useCallback(() => {
+    console.log("LOGGING OUT")
     localStorage.removeItem(LOCALSTORAGE.TOKEN);
     localStorage.removeItem(LOCALSTORAGE.USER);
     localStorage.removeItem(LOCALSTORAGE.EXPIRATION_TIME);
@@ -83,12 +84,12 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem(LOCALSTORAGE.USER, stringifiedUser);
     localStorage.setItem(LOCALSTORAGE.EXPIRATION_TIME, initialTime);
 
-    logoutTimer = setTimeout(logoutHandler, initialTime);
+    // logoutTimer = setTimeout(logoutHandler, initialTime);
   };
 
   useEffect(() => {
     if (tokenData) {
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+      // logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
   }, [tokenData, logoutHandler]);
 

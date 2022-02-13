@@ -4,6 +4,12 @@ const initialHTTPUIState = {
   campaignStatus: null,
   campaignError: false,
   campaignPostStatus: null,
+  journalStatus: null,
+  journalError: false,
+  journalPostStatus: null,
+  recordStatus: null,
+  recordError: false,
+  recordPostStatus: null,
 };
 
 const httpUISlice = createSlice({
@@ -17,6 +23,22 @@ const httpUISlice = createSlice({
     campaignPostStatus(state, action) {
       state.campaignPostStatus = action.payload.status;
       state.campaignError = action.payload.error;
+    },
+    journalHandler(state, action) {
+      state.journalStatus = action.payload.status;
+      state.journalError = action.payload.error;
+    },
+    journalPostStatus(state, action) {
+      state.journalPostStatus = action.payload.status;
+      state.journalError = action.payload.error;
+    },
+    recordHandler(state, action) {
+      state.recordStatus = action.payload.status;
+      state.recordError = action.payload.error;
+    },
+    recordPostStatus(state, action) {
+      state.recordPostStatus = action.payload.status;
+      state.recordError = action.payload.error;
     },
   },
 });
