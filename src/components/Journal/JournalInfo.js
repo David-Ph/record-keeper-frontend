@@ -1,23 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { HTTP_STATUS } from "../../hooks/useHttp";
 
 import Title from "../UI/Typography/Title";
-import CardSecondary from "../UI/Card/CardSecondary";
+import JournalItem from "./JournalItem";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 function JournalInfo({ journals }) {
   const { journalStatus } = useSelector((state) => state.httpUI);
-  const [showJournalDetail, setShowJournalDetail] = useState(false);
-  const [journalContent, setJournalContent] = useState({
-    title: "",
-    body: "",
-  });
-
-  const onJournalClick = (event) => {
-    console.log(event.target);
-  };
 
   const isLoading = journalStatus === HTTP_STATUS.PENDING;
   const loadingSpinner = (
@@ -34,10 +25,15 @@ function JournalInfo({ journals }) {
         journals.length &&
         journals.map((journal) => {
           return (
-            <CardSecondary onClick={onJournalClick}>
+            <JournalItem
+              key={journal._id}
+              id={journal._id}
+              title={journal.title}
+              body={journal.body}
+            >
               <Title>{journal.title}</Title>
               <p>{journal.excerpt}</p>
-            </CardSecondary>
+            </JournalItem>
           );
         })}
     </section>

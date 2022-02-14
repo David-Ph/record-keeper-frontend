@@ -6,7 +6,7 @@ const Backdrop = (props) => {
   return (
     <div
       onClick={props.onClick}
-      className="fixed top-0 left-0 w-full h-screen z-20 bg-black/50"
+      className="fixed modalBackdrop top-0 left-0 w-full h-screen z-20 bg-black/50"
     ></div>
   );
 };
