@@ -9,7 +9,7 @@ import { httpUIActions } from "../http-ui/http-ui-slice";
 export const getJournalsAction = (params, token) => {
   return async (dispatch) => {
     try {
-      dispatch(httpUIActions.campaignHandler({ status: HTTP_STATUS.PENDING }));
+      dispatch(httpUIActions.journalHandler({ status: HTTP_STATUS.PENDING }));
 
       const journalsData = await getJournals(params, token);
 
@@ -17,13 +17,13 @@ export const getJournalsAction = (params, token) => {
       if (journalsData.status === 200) {
         dispatch(journalActions.getAllJournals(journalsData.data.data));
         dispatch(
-          httpUIActions.campaignHandler({ status: HTTP_STATUS.COMPLETED })
+          httpUIActions.journalHandler({ status: HTTP_STATUS.COMPLETED })
         );
       }
     } catch (error) {
       dispatch(journalActions.getAllJournals(initialJournalState));
       dispatch(
-        httpUIActions.campaignHandler({
+        httpUIActions.journalHandler({
           status: HTTP_STATUS.COMPLETED,
           error: error.message || "Something went wrong",
         })
