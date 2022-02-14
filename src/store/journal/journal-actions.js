@@ -1,4 +1,4 @@
-import { getJournals } from "../../lib/JournalApi";
+import { getJournals, deleteJournal } from "../../lib/JournalApi";
 
 import { HTTP_STATUS } from "../../hooks/useHttp";
 
@@ -12,7 +12,6 @@ export const getJournalsAction = (params, token) => {
       dispatch(httpUIActions.journalHandler({ status: HTTP_STATUS.PENDING }));
 
       const journalsData = await getJournals(params, token);
-
 
       if (journalsData.status === 200) {
         dispatch(journalActions.getAllJournals(journalsData.data.data));
@@ -32,30 +31,6 @@ export const getJournalsAction = (params, token) => {
   };
 };
 
-// export const getOneCampaignAction = (campaignId, token) => {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(httpUIActions.campaignHandler({ status: HTTP_STATUS.PENDING }));
-
-//       const campaign = await getOneCampaign(campaignId, token);
-
-//       if (campaign.status === 200) {
-//         dispatch(campaignActions.switchCampaign(campaign.data.data));
-//         dispatch(
-//           httpUIActions.campaignHandler({ status: HTTP_STATUS.COMPLETED })
-//         );
-//       }
-//     } catch (error) {
-//       dispatch(
-//         httpUIActions.campaignHandler({
-//           status: HTTP_STATUS.COMPLETED,
-//           error: error.message || "Something went wrong",
-//         })
-//       );
-//     }
-//   };
-// };
-
 // export const addCampaignAction = (campaignData, token, cb = () => {}) => {
 //   return async (dispatch) => {
 //     try {
@@ -66,8 +41,8 @@ export const getJournalsAction = (params, token) => {
 //       const campaign = await addCampaign(campaignData, token);
 
 //       if (campaign.status === 201) {
-//         dispatch(campaignActions.switchCampaign(campaign.data.data));
-//         dispatch(campaignActions.addCampaign(campaign.data.data));
+//         dispatch(journalActions.switchCampaign(campaign.data.data));
+//         dispatch(journalActions.addCampaign(campaign.data.data));
 //         dispatch(
 //           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
 //         );
@@ -85,7 +60,7 @@ export const getJournalsAction = (params, token) => {
 // };
 
 // export const editCampaignAction = (
-//   campaignId,
+//   journalId,
 //   campaignData,
 //   token,
 //   cb = () => {}
@@ -96,11 +71,11 @@ export const getJournalsAction = (params, token) => {
 //         httpUIActions.campaignPostStatus({ status: HTTP_STATUS.PENDING })
 //       );
 
-//       const campaign = await editCampaign(campaignId, campaignData, token);
+//       const campaign = await editCampaign(journalId, campaignData, token);
 
 //       if (campaign.status === 201) {
-//         dispatch(campaignActions.switchCampaign(campaign.data.data));
-//         dispatch(campaignActions.editCampaign(campaign.data.data));
+//         dispatch(journalActions.switchCampaign(campaign.data.data));
+//         dispatch(journalActions.editCampaign(campaign.data.data));
 //         dispatch(
 //           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
 //         );
@@ -117,30 +92,31 @@ export const getJournalsAction = (params, token) => {
 //   };
 // };
 
-// export const deleteCampaignAction = (campaignId, token, cb = () => {}) => {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(
-//         httpUIActions.campaignPostStatus({ status: HTTP_STATUS.PENDING })
-//       );
+export const deleteJournalAction = (journalId, token, cb = () => {}) => {
+  return async (dispatch) => {
+    try {
+      dispatch(
+        httpUIActions.journalPostStatus({ status: HTTP_STATUS.PENDING })
+      );
 
-//       const campaign = await deleteCampaign(campaignId, token);
+      const journal = await deleteJournal(journalId, token);
 
-//       if (campaign.status === 200) {
-//         dispatch(campaignActions.switchCampaign(initialCampaignState));
-//         dispatch(campaignActions.deleteCampaign(campaignId));
-//         dispatch(
-//           httpUIActions.campaignPostStatus({ status: HTTP_STATUS.COMPLETED })
-//         );
-//         cb();
-//       }
-//     } catch (error) {
-//       dispatch(
-//         httpUIActions.campaignPostStatus({
-//           status: HTTP_STATUS.COMPLETED,
-//           error: error.message || "Something went wrong",
-//         })
-//       );
-//     }
-//   };
-// };
+      console.log(journal);
+
+      if (journal.status === 200) {
+        dispatch(journalActions.deleteJournal(journalId));
+        dispatch(
+          httpUIActions.journalPostStatus({ status: HTTP_STATUS.COMPLETED })
+        );
+        cb();
+      }
+    } catch (error) {
+      dispatch(
+        httpUIActions.journalPostStatus({
+          status: HTTP_STATUS.COMPLETED,
+          error: error.message || "Something went wrong",
+        })
+      );
+    }
+  };
+};

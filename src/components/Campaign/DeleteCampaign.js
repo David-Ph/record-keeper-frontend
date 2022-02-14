@@ -33,14 +33,17 @@ function DeleteCampaign(props) {
   return (
     <Modal onClick={props.onHide}>
       <section>
-        <form onSubmit={submitHandler}>
+        <form className="text-center" onSubmit={submitHandler}>
           <p>Are you sure?</p>
           {httpUI.campaignPostStatus === HTTP_STATUS.PENDING ? (
             <LoadingSpinner />
           ) : (
             <div className="buttons">
-              <Button type="submit">Yes</Button>
+              <Button width="w-1/3" type="submit">
+                Yes
+              </Button>
               <Button
+                width="w-1/3"
                 onClick={props.onHide}
                 type="button"
                 color="bg-primary hover:text-white"

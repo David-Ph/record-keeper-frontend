@@ -23,6 +23,8 @@ function JournalItem(props) {
       {props.children}
       {showJournalDetail && (
         <JournalDetail
+          id={props.id}
+          key={props.id}
           onHide={onHideJournal}
           title={props.title}
           body={props.body}
