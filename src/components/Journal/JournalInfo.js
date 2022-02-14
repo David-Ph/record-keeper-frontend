@@ -22,7 +22,7 @@ function JournalInfo({ journals }) {
       {isLoading && loadingSpinner}
       {!isLoading && !journals.length && <Title>No Journal Entries</Title>}
       {!isLoading &&
-        journals.length &&
+        journals.length > 0 &&
         journals.map((journal) => {
           return (
             <JournalItem

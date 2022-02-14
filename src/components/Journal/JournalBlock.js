@@ -22,7 +22,6 @@ function JournalBlock(props) {
   const search = queryParams.get("search");
 
   let params = `?campaignId=${id}`
-
   if(page) params += `&page=${page}`;
   if(search) params += `&search=${search}`;
 

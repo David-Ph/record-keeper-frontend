@@ -1,12 +1,24 @@
 import React from "react";
+import { useLocation, useHistory } from "react-router-dom";
 
 import Title from "../UI/Typography/Title";
 import InputSecondary from "../UI/Input/InputSecondary";
 import Button from "../UI/Button/Button";
 
-function JournalHeader(props) {
+function JournalHeader() {
+  const location = useLocation();
+  const history = useHistory();
+
   const onEnterHandler = (e) => {
     if (e.key !== "Enter") return;
+
+    const path = location.pathname;
+    const search = e.target.value;
+
+    let params = `?page=1`;
+    if (search) params += `&search=${search}`;
+
+    history.push(`${path}${params}`);
   };
 
   return (
