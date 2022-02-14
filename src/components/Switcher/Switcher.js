@@ -12,12 +12,12 @@ function Switcher() {
     <div className="bg-primary w-full shadow-lg">
       <div className="flex h-14">
         <Link
-          target={`${match.path}/${campaignsData.activeCampaign._id}/journals`}
+          target={`${match.path}/${campaignsData.activeCampaign._id}/journals?page=1`}
         >
           Journal Entries
         </Link>
         <Link
-          target={`${match.path}/${campaignsData.activeCampaign._id}/records`}
+          target={`${match.path}/${campaignsData.activeCampaign._id}/records?page=1`}
         >
           Records
         </Link>

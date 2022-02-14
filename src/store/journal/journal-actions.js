@@ -14,7 +14,12 @@ export const getJournalsAction = (params, token) => {
       const journalsData = await getJournals(params, token);
 
       if (journalsData.status === 200) {
-        dispatch(journalActions.getAllJournals(journalsData.data.data));
+        dispatch(
+          journalActions.getAllJournals({
+            journalsList: journalsData.data.data,
+            journalsCount: journalsData.data.count,
+          })
+        );
         dispatch(
           httpUIActions.journalHandler({ status: HTTP_STATUS.COMPLETED })
         );
@@ -100,8 +105,6 @@ export const deleteJournalAction = (journalId, token, cb = () => {}) => {
       );
 
       const journal = await deleteJournal(journalId, token);
-
-      console.log(journal);
 
       if (journal.status === 200) {
         dispatch(journalActions.deleteJournal(journalId));

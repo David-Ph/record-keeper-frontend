@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialJournalState = {
   journalsList: [],
+  journalsCount: 0,
 };
 
 // reducers to change UI
@@ -10,7 +11,8 @@ const journalSlice = createSlice({
   initialState: initialJournalState,
   reducers: {
     getAllJournals(state, action) {
-      state.journalsList = action.payload || [];
+      state.journalsList = action.payload.journalsList || [];
+      state.journalsCount = action.payload.journalsCount || [];
     },
     deleteJournal(state, action) {
       const previousList = state.journalsList;
