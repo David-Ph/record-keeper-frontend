@@ -1,36 +1,33 @@
-import React from "react";
-import { Editor, EditorState } from "draft-js";
-import "draft-js/dist/Draft.css";
+import React, { useState } from "react";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+// import htmlToDraft from "html-to-draftjs";
 
 import Modal from "../Modal/Modal";
 import Title from "../UI/Typography/Title";
 
 function JournalForm(props) {
-  const [editorState, setEditorState] = React.useState(() =>
-    EditorState.createEmpty()
-  );
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const editor = React.useRef(null);
-  function focusEditor() {
-    editor.current.focus();
-  }
+  const onEditorStateChange = (state) => {
+    setEditorState(state);
+  };
+
+  console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+
   return (
     <Modal onClick={props.onHide}>
       <div>
         <Title>Journal</Title>
-        <div
-          style={{
-            border: "1px solid black",
-            minHeight: "6em",
-            cursor: "text",
-          }}
-          onClick={focusEditor}
-        >
+        <div className="bg-yellow-100 px-2 max-h-[768px] overflow-auto">
           <Editor
-            ref={editor}
             editorState={editorState}
-            onChange={setEditorState}
-            placeholder="Write something!"
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={onEditorStateChange}
           />
         </div>
       </div>
