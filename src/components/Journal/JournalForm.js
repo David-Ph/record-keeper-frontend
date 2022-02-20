@@ -15,10 +15,25 @@ function JournalForm(props) {
     setEditorState(state);
   };
 
-  console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+  const onCloseModal = () => {
+    const editorContent = draftToHtml(
+      convertToRaw(editorState.getCurrentContent())
+    );
+
+    let confirmation = true;
+
+    // if editorContent has content, confirm close modal
+    if (editorContent.length > 8) {
+      confirmation = window.confirm("Are you sure you want to close the modal? Content will be lost");
+    }
+
+    if (confirmation) {
+      props.onHide();
+    }
+  };
 
   return (
-    <Modal onClick={props.onHide}>
+    <Modal onClick={onCloseModal}>
       <div>
         <Title>Journal</Title>
         <div className="bg-yellow-100 px-2 max-h-[768px] overflow-auto">
