@@ -7,7 +7,6 @@ function JournalItem(props) {
 
   const onJournalClick = (event) => {
     if (event.target.classList.contains("modalBackdrop")) return;
-
     setShowJournalDetail(true);
   };
 

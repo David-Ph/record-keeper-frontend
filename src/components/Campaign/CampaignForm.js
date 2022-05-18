@@ -74,7 +74,7 @@ function CampaignForm(props) {
     }
   };
 
-  const title = props.mode === "edit" ? "Edit" : "Add";
+  const title = mode === "edit" ? "Edit" : "Add";
 
   const availableStatus = CampaignStatus.map((status) => {
     return {
